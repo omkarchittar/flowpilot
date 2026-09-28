@@ -71,10 +71,12 @@ def append_event(
     return event
 
 
-def verify_chain(events: Sequence[AuditEvent]) -> bool:
-    previous = GENESIS
+def verify_chain(
+    events: Sequence[AuditEvent], *, previous_hash: str = GENESIS, start_sequence: int = 1
+) -> bool:
+    previous = previous_hash
     workflow_id = events[0].workflow_id if events else None
-    for sequence, event in enumerate(events, start=1):
+    for sequence, event in enumerate(events, start=start_sequence):
         if (
             event.workflow_id != workflow_id
             or event.sequence != sequence

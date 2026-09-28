@@ -174,3 +174,11 @@ class Notification(Identity, Base):
     subject: Mapped[str] = mapped_column(String(200))
     message: Mapped[str] = mapped_column(Text)
     read_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class LoginThrottle(Base):
+    __tablename__ = "login_throttles"
+    subject_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    attempts: Mapped[int] = mapped_column(Integer)
+    window_start: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    __table_args__ = (CheckConstraint("attempts > 0", name="positive_attempts"),)

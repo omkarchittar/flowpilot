@@ -24,9 +24,11 @@ services:
         condition: service_healthy
   api:
     build: ./backend
-    environment:
+    environment: &backend_environment
       FLOWPILOT_DATABASE_URL: postgresql+psycopg://flowpilot:${POSTGRES_PASSWORD}@db:5432/flowpilot
       FLOWPILOT_OPENAI_API_KEY: ${FLOWPILOT_OPENAI_API_KEY:-}
+      FLOWPILOT_GENERATION_MODEL: ${FLOWPILOT_GENERATION_MODEL:-gpt-4.1-mini}
+      FLOWPILOT_ENCRYPTION_KEY: ${FLOWPILOT_ENCRYPTION_KEY:?Set a generated Fernet key in .env}
     ports:
       - "127.0.0.1:8001:8000"
     depends_on:
@@ -37,5 +39,14 @@ services:
       interval: 15s
       timeout: 5s
       retries: 3
+  worker:
+    build: ./backend
+    command: ["python", "-m", "flowpilot.worker"]
+    environment: *backend_environment
+    restart: unless-stopped
+    stop_grace_period: 60s
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
 volumes:
   db_data:

@@ -41,3 +41,10 @@ def test_not_found_has_consistent_error_envelope():
         assert response.status_code == 404
         assert response.json()["error"]["code"] == "http_404"
         assert response.json()["error"]["request_id"] == response.headers["X-Request-ID"]
+
+
+def test_body_limit_applies_before_parsing_even_without_content_length():
+    with TestClient(create_app(Settings(upload_limit_bytes=10))) as client:
+        response = client.post("/api/auth/token", content=b"x" * 1_000_011)
+        assert response.status_code == 413
+        assert response.json()["error"]["code"] == "request_too_large"

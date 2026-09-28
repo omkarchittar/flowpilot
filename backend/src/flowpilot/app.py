@@ -22,8 +22,12 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
+from flowpilot.api import router as product_router
+from flowpilot.auth import router as auth_router
+from flowpilot.body_limit import BodyLimit
 from flowpilot.config import Settings
 from flowpilot.db import Database
+from flowpilot.workflow_service import WorkflowConflict
 
 logger = logging.getLogger("flowpilot.requests")
 
@@ -57,8 +61,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         CORSMiddleware,
         allow_origins=settings.allowed_origins,
         allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE"],
-        allow_headers=["Authorization", "Content-Type", "X-Request-ID", "Idempotency-Key"],
+        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
+        allow_headers=[
+            "Authorization",
+            "Content-Type",
+            "X-Request-ID",
+            "Idempotency-Key",
+            "X-CSRF-Token",
+        ],
         expose_headers=["X-Request-ID"],
     )
 
@@ -124,6 +134,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         # Do not echo Pydantic's input field: it can contain passwords and documents.
         return error(request, "invalid_request", "Request does not match the required schema.", 422)
 
+    @app.exception_handler(WorkflowConflict)
+    async def workflow_conflict(request: Request, exc: WorkflowConflict):
+        return error(request, "workflow_conflict", str(exc), 409)
+
+    @app.exception_handler(PermissionError)
+    async def permission_error(request: Request, exc: PermissionError):
+        return error(request, "forbidden", str(exc), 403)
+
     @app.get("/health/live", tags=["operations"])
     def live():
         return {"status": "ok", "service": "flowpilot", "version": "0.1.0"}
@@ -143,4 +161,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     def metrics():
         return Response(generate_latest(registry), media_type=CONTENT_TYPE_LATEST)
 
+    app.add_middleware(BodyLimit, max_bytes=settings.upload_limit_bytes + 1_000_000)
+    app.include_router(auth_router)
+    app.include_router(product_router)
     return app

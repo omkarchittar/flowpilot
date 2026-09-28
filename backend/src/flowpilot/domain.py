@@ -90,6 +90,7 @@ class VendorCandidate(StrictModel):
     # This map records verified source IDs. Provider adapters must verify the
     # original quote against source content before creating this domain object.
     evidence: dict[str, str] = Field(default_factory=dict)
+    field_confidences: dict[str, float] = Field(default_factory=dict)
 
     @field_validator("company_name", "tax_id", "contact_name", "contact_email", mode="before")
     @classmethod

@@ -33,17 +33,17 @@ adding intermediate approval gates. Record actual test results here, not intenti
 
 ### 2. Ingestion and AI extraction
 
-- [ ] Deliverable: `documents.py, providers.py, api.py`.
-- [ ] Behavior evidence: Bounded uploads and strict schema validation; supported/unsupported request classification; extracted fields require source evidence.
-- [ ] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
-- [ ] Commit the verified increment and record evidence below.
+- [x] Deliverable: `documents.py, providers.py, api.py`.
+- [x] Behavior evidence: Bounded uploads and strict schema validation; supported/unsupported request classification; extracted fields require source evidence.
+- [x] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
+- [x] Commit the verified increment and record evidence below.
 
 ### 3. Durable workflow and approvals
 
-- [ ] Deliverable: `orchestration.py, worker.py, tools.py, audit.py`.
-- [ ] Behavior evidence: Revision-bound approvals, append-only events, concurrent claims, retry exhaustion, idempotent vendor creation and notification outbox.
-- [ ] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
-- [ ] Commit the verified increment and record evidence below.
+- [x] Deliverable: `orchestration.py, worker.py, workflow_service.py, audit.py`.
+- [x] Behavior evidence: Revision-bound approvals, append-only events, concurrent claims, retry exhaustion, idempotent vendor creation and in-app notifications.
+- [x] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
+- [x] Commit the verified increment and record evidence below.
 
 ### 4. API and reliability benchmark
 
@@ -80,3 +80,15 @@ adding intermediate approval gates. Record actual test results here, not intenti
 - Final suite for this checkpoint: **115 passing tests** with PostgreSQL, with no skipped tests.
 - Real Uvicorn readiness and Prometheus endpoints returned successful responses; smoke-test servers were stopped afterward.
 - Current status: foundation complete, broader product implementation remains active. No remote push or release deployment has been performed.
+
+### Authenticated API and durable-worker checkpoint — 2026-09-28
+
+- Cookie/Bearer authentication, CSRF, persisted login throttles, bootstrap CLI and account administration implemented. Password validation errors omit input values.
+- Atomic, encrypted, idempotent intake; strict-schema classification/extraction; verified field and document quotes; policy validation; human decisions; revisions; execution; inbox and audit pagination implemented.
+- End-to-end PostgreSQL tests reach approval without side effects, then require human approval before vendor and notification creation. Retry/exhaustion paths preserve audit and route permanent failure to manual review.
+- Revision limits cover retained plus new documents. Blank normalized quotes cannot satisfy document evidence. Audit responses explicitly verify one page against its preceding hash.
+- Full suite: **155 passing tests**, no skips, with PostgreSQL 17. Ruff lint/format and Alembic schema check pass. Full downgrade to base and upgrade to head pass on the isolated test database.
+- Native Uvicorn smoke test in a temporary database verifies CLI bootstrap, real HTTP authentication, persisted product mutation, separate-worker missing-key failure handling, and session revocation. Temporary processes and database removed afterward.
+- Independent review found three concrete issues across the increment (blank evidence quotes, bootstrap validation secret exposure, PDF upload-size mismatch). Regression tests reproduced all three; fixes approved on re-review with no outstanding findings.
+- Compose now starts the worker and shares backend configuration. FlowPilot dependency locks include psutil. YAML and environment references validated, but actual Docker builds/startup remain unverified because Docker is unavailable.
+- These test totals are not live provider quality metrics or the final PRD benchmark corpus. Frontend, complete benchmark artifacts and release presentation remain outstanding. No remote push or deployment performed.

@@ -149,3 +149,29 @@ def test_protocol_disconnect_retries_without_logging_transport_details():
         provider.classify("Please onboard Acme.")
     assert error.value.code == "provider_unavailable" and error.value.retryable
     assert "private" not in str(error.value)
+
+
+def test_model_alias_must_be_exact_or_have_a_dated_snapshot_suffix():
+    with httpx.Client(
+        transport=httpx.MockTransport(
+            lambda _: httpx.Response(
+                200,
+                json={
+                    "model": "gpt-4.1-mini-unrelated",
+                    "choices": [
+                        {
+                            "finish_reason": "stop",
+                            "message": {
+                                "content": json.dumps(
+                                    {"request_type": "vendor_onboarding", "confidence": 0.99}
+                                )
+                            },
+                        }
+                    ],
+                    "usage": {"prompt_tokens": 2, "completion_tokens": 1},
+                },
+            )
+        )
+    ) as client:
+        with pytest.raises(ProviderError, match="invalid_model_response"):
+            OpenAIWorkflowProvider("test", client=client).classify("Please onboard this vendor")

@@ -34,13 +34,17 @@ jobs:
       - run: pip install -r requirements-dev.lock && pip install --no-deps -e .
       - run: ruff check src tests migrations && ruff format --check src tests migrations
       - run: alembic upgrade head && alembic check
-      - run: pytest --cov=flowpilot --cov-report=term-missing --junitxml=test-results.xml
+      - run: pytest --cov=flowpilot --cov-report=term-missing --junitxml=test-results.xml -o junit_family=xunit1
+      - run: python -m flowpilot.benchmark scenarios-report test-results.xml --manifest ../benchmarks/scenarios.json --output scenario-report.json
+        if: always()
       - run: alembic downgrade base && alembic upgrade head
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: backend-test-results
-          path: backend/test-results.xml
+          path: |
+            backend/test-results.xml
+            backend/scenario-report.json
   image:
     runs-on: ubuntu-latest
     steps:

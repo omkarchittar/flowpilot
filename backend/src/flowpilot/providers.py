@@ -1,5 +1,6 @@
 """Structured model boundary and deterministic evidence verification."""
 
+import hashlib
 import json
 import re
 import unicodedata
@@ -61,6 +62,7 @@ class ModelResult:
     output_tokens: int
     latency_ms: int
     prompt_version: str
+    prompt_fingerprint: str | None = None
 
     def metadata(self):
         return {
@@ -69,6 +71,7 @@ class ModelResult:
             "output_tokens": self.output_tokens,
             "latency_ms": self.latency_ms,
             "prompt_version": self.prompt_version,
+            "prompt_fingerprint": self.prompt_fingerprint,
         }
 
 
@@ -199,7 +202,10 @@ class OpenAIWorkflowProvider:
         try:
             result = response.json()
             actual = result["model"]
-            if actual != self.model and not actual.startswith(self.model + "-"):
+            if not isinstance(actual, str) or (
+                actual != self.model
+                and not re.fullmatch(re.escape(self.model) + r"-\d{4}-\d{2}-\d{2}", actual)
+            ):
                 raise ValueError("Model identity mismatch")
             choice = result["choices"][0]
             if choice.get("finish_reason") != "stop" or choice["message"].get("refusal"):
@@ -218,6 +224,9 @@ class OpenAIWorkflowProvider:
             completion,
             int((perf_counter() - started) * 1000),
             prompt_version,
+            hashlib.sha256(
+                (system + json.dumps(schema.model_json_schema(), sort_keys=True)).encode()
+            ).hexdigest(),
         )
 
     def classify(self, request_text: str) -> ModelResult:

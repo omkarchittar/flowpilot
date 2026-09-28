@@ -47,10 +47,10 @@ adding intermediate approval gates. Record actual test results here, not intenti
 
 ### 4. API and reliability benchmark
 
-- [ ] Deliverable: `api.py, tests/, benchmarks/`.
+- [x] Deliverable: `api.py, tests/, benchmarks/`.
 - [ ] Behavior evidence: RBAC and ownership enforced through HTTP; at least 100 scenarios; extraction accuracy and zero duplicate side effects reported honestly.
-- [ ] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
-- [ ] Commit the verified increment and record evidence below.
+- [x] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
+- [x] Commit the verified increment and record evidence below.
 
 ### 5. Frontend and operational delivery
 
@@ -98,3 +98,17 @@ adding intermediate approval gates. Record actual test results here, not intenti
 - Applied the provider-boundary finding from EvalRAG review: HTTP protocol disconnects are transient provider failures, not unclassified worker errors.
 - Reproduced with httpx.RemoteProtocolError, fixed by catching the TransportError family, and verified safe retry classification without exposing transport details.
 - Updated suite: **156 passing tests** against PostgreSQL; lint/format pass.
+
+
+### Workflow and extraction benchmark checkpoint — 2026-09-28
+
+- Added a manifest of **102 named workflow scenarios** spanning classification thresholds, missing/unverified fields/documents, malformed values, insurance dates, role/self-approval combinations, transient/permanent failures, idempotency/replayed execution and revoked authority. All execute actual services with PostgreSQL and controlled model responses.
+- Every scenario checks side-effect cardinality and independent current-revision approval. Audit checks validate the hash chain and state continuity, match persisted approvals to decision events and match sensitive tool receipts to their audit events. Four sabotage tests suppress required emissions and prove missing events are detected.
+- Added **32 authored classification requests / 20 vendor extraction cases**, with fictional evidence, required-field/document labels, missing/ambiguous values and adversarial instructions. CLI measures actual configured provider output, keeps failures/misclassification in denominators, reports field-level precision/recall and raw unsupported-value rates separately, and records dataset/endpoint/model/prompt/token provenance without raw fields in reports.
+- Tightened response model identity to exact configured model or dated snapshot suffix; added prompt/schema fingerprints to provider metadata. Regression test rejects an unrelated model suffix.
+- Independent review identified failed observations disappearing from reliability totals and audit-chain validity being mistaken for completeness. Both fixed with explicit regressions; re-review approved with no outstanding findings. Missing metrics are unknown with coverage; failed known observations remain in metrics; retry denominators remain fixed.
+- Final local check script: **271 passing tests**, no skips, with PostgreSQL 17. Ruff format/lint and Alembic schema drift check pass. No schema change in this increment; migrations were already roundtrip-verified in the prior backend increment.
+- Complete scenario report: 102/102 expected outcomes, 10/10 independently approved sensitive effects, zero duplicate vendors, 102 audit contracts verified. Four of six injected transient cases recover; the other two intentionally exhaust their retry budget. Saved report: `benchmarks/results/workflow-contracts.json`. These are software contract observations, not production/model accuracy claims.
+- Native extraction CLI smoke used a temporary local HTTP provider explicitly named `controlled-contract`: 32 classifications and 20 extractions, with one deliberately unsupported field correctly lowering recall/increasing unsupported rate. Actual model/prompt/token metadata persisted; no raw tax identifier appeared in the report. This validates measurement wiring, not live-model quality.
+- CI and local check script now produce/gate on the scenario report. Docker execution and remote CI remain unverified locally. Live extraction accuracy remains required before the full benchmark/release requirement is complete, so task 4's broader behavioral requirement stays open.
+- Next: full Next.js frontend and browser journeys, live-model measurements, Docker/release/deployment validation, screenshots/GIF and final requirement audit. Goal remains active; no remote push or deployment performed.

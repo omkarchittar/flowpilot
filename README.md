@@ -2,8 +2,8 @@
 
 A vendor onboarding system with deterministic validation, revision-bound human approvals and auditable execution.
 
-**Status: authenticated backend and durable workers implemented; product development in progress.**
-The product APIs are usable through OpenAPI or an API client. The frontend and complete
+**Status: workflow backend and reliability benchmark implemented; frontend/release work in progress.**
+The product APIs are usable through OpenAPI or an API client. The frontend and measured live-model
 benchmark/release package are still in progress.
 
 ## Implemented and verified
@@ -20,10 +20,27 @@ benchmark/release package are still in progress.
 - PostgreSQL job queue with SKIP LOCKED claims, expiring leases, backoff and stale-worker fencing.
 - FastAPI liveness/readiness, structured request logs, correlation IDs and Prometheus metrics.
 - Alembic migrations, reproducible dependency locks, non-root Dockerfile and backend CI definition.
+- [102 named workflow scenarios and a 32-request extraction benchmark](benchmarks/README.md), with reproducible CLI reports and CI artifact generation.
 
-Current local verification: **156 tests pass against PostgreSQL 17**. This count includes unit, HTTP and database tests; it is not a claim that
-the final PRD benchmark/scenario requirements have been completed. Live provider calls
-and Docker image builds have not yet been verified in this environment.
+Current local verification: **271 tests pass with PostgreSQL 17**, including the complete 102-scenario benchmark. Live model
+accuracy, Docker image builds and the final release presentation remain unverified.
+
+### Measured workflow contract results
+
+These are controlled scenario results on PostgreSQL, not model accuracy or production reliability.
+
+| Observation | Result |
+| --- | ---: |
+| Expected workflow outcomes | 102 / 102 |
+| Independent approvals before sensitive effects | 10 / 10 effects |
+| Duplicate vendor creations under replay tests | 0 |
+| Audit integrity and completeness | 102 / 102 scenarios |
+| Injected transient cases recovered | 4 / 6; the other 2 intentionally exhaust retries |
+
+See the [saved scenario report](benchmarks/results/workflow-contracts.json) and
+[benchmark method and commands](benchmarks/README.md) for denominators and limitations.
+Live extraction measurements will be published separately; authored labels and contract fixtures
+are not presented as model-generated benchmark scores.
 
 ## Architecture
 
@@ -127,7 +144,7 @@ adapter contracts. They are not fabricated live model quality results.
 
 ## Next milestones
 
-Extraction and reliability benchmark suite; Next.js frontend; browser tests; release pipeline; screenshots and demo GIF.
+Next.js frontend; browser tests; live-provider extraction measurements; release pipeline; screenshots and demo GIF.
 
 The final release will include measured benchmarks, an interactive frontend,
 architecture/state diagrams, screenshots, a demo GIF, deployment instructions and

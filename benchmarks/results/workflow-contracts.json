@@ -1,0 +1,1460 @@
+{
+  "evidence_type": "controlled workflow contracts on PostgreSQL; not model accuracy or production reliability",
+  "manifest_sha256": "7ce1eedc9a3f942018c670a2567b63378e680f5886cba0f50f08a14cea162a78",
+  "junit_sha256": "59c9bf327c6e09c889ade54fd82c9f878c7987a816fa9843ca8c6794b70d5197",
+  "generated_at": "2026-09-28T06:30:08.161732+00:00",
+  "passed": true,
+  "required_scenarios": 102,
+  "observed_scenarios": 102,
+  "missing": [],
+  "counts": {
+    "passed": 102
+  },
+  "expected_outcome_rate": 1.0,
+  "observation_coverage": {
+    "final_state": 1.0,
+    "vendors": 1.0,
+    "sensitive_effects": 1.0,
+    "independently_approved_effects": 1.0,
+    "duplicate_side_effects": 1.0,
+    "audit_verified": 1.0
+  },
+  "approved_completion_rate": 1.0,
+  "transient_retry_recovery_rate": 0.6666666666666666,
+  "sensitive_effects": 10,
+  "independently_approved_effects": 10,
+  "approval_coverage": 1.0,
+  "duplicate_vendor_creations": 0,
+  "observed_duplicate_vendor_creations": 0,
+  "audit_verified_scenarios": 102,
+  "scenarios": [
+    {
+      "id": "classify-vendor_onboarding-0.84",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-vendor_onboarding-0.84",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-vendor_onboarding-0.85",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-vendor_onboarding-0.85",
+        "family": "classification",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-vendor_onboarding-1.0",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-vendor_onboarding-1.0",
+        "family": "classification",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-invoice_review-0.84",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-invoice_review-0.84",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-invoice_review-0.85",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-invoice_review-0.85",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-invoice_review-1.0",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-invoice_review-1.0",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-contract_request-0.84",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-contract_request-0.84",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-contract_request-0.85",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-contract_request-0.85",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-contract_request-1.0",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-contract_request-1.0",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-unknown-0.84",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-unknown-0.84",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-unknown-0.85",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-unknown-0.85",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "classify-unknown-1.0",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "classify-unknown-1.0",
+        "family": "classification",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-company_name-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-company_name-missing",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-company_name-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-company_name-unknown_source",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-company_name-invented_quote",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-company_name-invented_quote",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-company_name-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-company_name-low_confidence",
+        "family": "field",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-tax_id-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-tax_id-missing",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-tax_id-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-tax_id-unknown_source",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-tax_id-invented_quote",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-tax_id-invented_quote",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-tax_id-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-tax_id-low_confidence",
+        "family": "field",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_name-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_name-missing",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_name-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_name-unknown_source",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_name-invented_quote",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_name-invented_quote",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_name-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_name-low_confidence",
+        "family": "field",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_email-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_email-missing",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_email-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_email-unknown_source",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_email-invented_quote",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_email-invented_quote",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-contact_email-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-contact_email-low_confidence",
+        "family": "field",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-insurance_expiration-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-insurance_expiration-missing",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-insurance_expiration-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-insurance_expiration-unknown_source",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-insurance_expiration-invented_quote",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-insurance_expiration-invented_quote",
+        "family": "field",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "field-insurance_expiration-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "field-insurance_expiration-low_confidence",
+        "family": "field",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-tax_form-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-tax_form-missing",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-tax_form-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-tax_form-unknown_source",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-tax_form-request_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-tax_form-request_source",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-tax_form-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-tax_form-low_confidence",
+        "family": "document",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-insurance_certificate-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-insurance_certificate-missing",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-insurance_certificate-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-insurance_certificate-unknown_source",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-insurance_certificate-request_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-insurance_certificate-request_source",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-insurance_certificate-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-insurance_certificate-low_confidence",
+        "family": "document",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-bank_confirmation-missing",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-bank_confirmation-missing",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-bank_confirmation-unknown_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-bank_confirmation-unknown_source",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-bank_confirmation-request_source",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-bank_confirmation-request_source",
+        "family": "document",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "document-bank_confirmation-low_confidence",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "document-bank_confirmation-low_confidence",
+        "family": "document",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "tax-format-1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "tax-format-1",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "tax-format-2",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "tax-format-2",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "tax-format-3",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "tax-format-3",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "tax-format-4",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "tax-format-4",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "tax-format-5",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "tax-format-5",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "tax-format-6",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "tax-format-6",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "email-format-1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "email-format-1",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "email-format-2",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "email-format-2",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "email-format-3",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "email-format-3",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "email-format-4",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "email-format-4",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "email-format-5",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "email-format-5",
+        "family": "format",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary--365",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary--365",
+        "family": "expiry",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary--1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary--1",
+        "family": "expiry",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary-0",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary-0",
+        "family": "expiry",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary-1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary-1",
+        "family": "expiry",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary-29",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary-29",
+        "family": "expiry",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary-30",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary-30",
+        "family": "expiry",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "insurance-boundary-31",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "insurance-boundary-31",
+        "family": "expiry",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-requester-approve-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-requester-approve-other",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-requester-approve-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-requester-approve-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-requester-reject-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-requester-reject-other",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-requester-reject-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-requester-reject-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-requester-request_changes-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-requester-request_changes-other",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-requester-request_changes-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-requester-request_changes-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-reviewer-approve-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-reviewer-approve-other",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-reviewer-approve-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-reviewer-approve-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-reviewer-reject-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-reviewer-reject-other",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-reviewer-reject-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-reviewer-reject-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-reviewer-request_changes-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-reviewer-request_changes-other",
+        "family": "decision",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-reviewer-request_changes-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-reviewer-request_changes-own",
+        "family": "decision",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-approver-approve-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-approver-approve-other",
+        "family": "decision",
+        "final_state": "COMPLETED",
+        "vendors": "1",
+        "sensitive_effects": "2",
+        "independently_approved_effects": "2",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-approver-approve-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-approver-approve-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-approver-reject-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-approver-reject-other",
+        "family": "decision",
+        "final_state": "REJECTED",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-approver-reject-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-approver-reject-own",
+        "family": "decision",
+        "final_state": "REJECTED",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-approver-request_changes-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-approver-request_changes-other",
+        "family": "decision",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-approver-request_changes-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-approver-request_changes-own",
+        "family": "decision",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-admin-approve-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-admin-approve-other",
+        "family": "decision",
+        "final_state": "COMPLETED",
+        "vendors": "1",
+        "sensitive_effects": "2",
+        "independently_approved_effects": "2",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-admin-approve-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-admin-approve-own",
+        "family": "decision",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-admin-reject-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-admin-reject-other",
+        "family": "decision",
+        "final_state": "REJECTED",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-admin-reject-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-admin-reject-own",
+        "family": "decision",
+        "final_state": "REJECTED",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-admin-request_changes-other",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-admin-request_changes-other",
+        "family": "decision",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "decision-admin-request_changes-own",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "decision-admin-request_changes-own",
+        "family": "decision",
+        "final_state": "NEEDS_INFORMATION",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-classify-1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-classify-1",
+        "family": "retry",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-classify-2",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-classify-2",
+        "family": "retry",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-classify-3",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-classify-3",
+        "family": "retry",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-classify-permanent",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-classify-permanent",
+        "family": "retry",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-extract-1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-extract-1",
+        "family": "retry",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-extract-2",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-extract-2",
+        "family": "retry",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-extract-3",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-extract-3",
+        "family": "retry",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "retry-extract-permanent",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "retry-extract-permanent",
+        "family": "retry",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "execution-replay-1",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "execution-replay-1",
+        "family": "execution_replay",
+        "final_state": "COMPLETED",
+        "vendors": "1",
+        "sensitive_effects": "2",
+        "independently_approved_effects": "2",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "execution-replay-5",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "execution-replay-5",
+        "family": "execution_replay",
+        "final_state": "COMPLETED",
+        "vendors": "1",
+        "sensitive_effects": "2",
+        "independently_approved_effects": "2",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "execution-replay-20",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "execution-replay-20",
+        "family": "execution_replay",
+        "final_state": "COMPLETED",
+        "vendors": "1",
+        "sensitive_effects": "2",
+        "independently_approved_effects": "2",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "intake-replay-same",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "intake-replay-same",
+        "family": "intake_replay",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "intake-replay-reverse_attachments",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "intake-replay-reverse_attachments",
+        "family": "intake_replay",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "intake-replay-changed_payload",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "intake-replay-changed_payload",
+        "family": "intake_replay",
+        "final_state": "PENDING_APPROVAL",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "revoked-approver-disabled",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "revoked-approver-disabled",
+        "family": "revocation",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    },
+    {
+      "id": "revoked-approver-downgraded",
+      "status": "passed",
+      "observations": {
+        "scenario_id": "revoked-approver-downgraded",
+        "family": "revocation",
+        "final_state": "NEEDS_MANUAL_REVIEW",
+        "vendors": "0",
+        "sensitive_effects": "0",
+        "independently_approved_effects": "0",
+        "duplicate_side_effects": "0",
+        "audit_verified": "True"
+      }
+    }
+  ]
+}

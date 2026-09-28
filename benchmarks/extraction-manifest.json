@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "sha256": "4f4f55ebca6a66b24c07051351dfc070c07726fd006454aca93e81bfa9bad93c",
+  "cases": 32,
+  "vendor_extraction_cases": 20,
+  "classification_cases": 32,
+  "label_origin": "authored",
+  "contains_live_results": false
+}

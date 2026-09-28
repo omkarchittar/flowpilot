@@ -1,0 +1,762 @@
+{
+  "schema_version": 1,
+  "evidence_type": "authored deterministic workflow contract scenarios",
+  "as_of": "2026-09-28",
+  "scenarios": [
+    {
+      "id": "classify-vendor_onboarding-0.84",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "vendor_onboarding",
+      "confidence": 0.84
+    },
+    {
+      "id": "classify-vendor_onboarding-0.85",
+      "family": "classification",
+      "expected_state": "PENDING_APPROVAL",
+      "kind": "vendor_onboarding",
+      "confidence": 0.85
+    },
+    {
+      "id": "classify-vendor_onboarding-1.0",
+      "family": "classification",
+      "expected_state": "PENDING_APPROVAL",
+      "kind": "vendor_onboarding",
+      "confidence": 1.0
+    },
+    {
+      "id": "classify-invoice_review-0.84",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "invoice_review",
+      "confidence": 0.84
+    },
+    {
+      "id": "classify-invoice_review-0.85",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "invoice_review",
+      "confidence": 0.85
+    },
+    {
+      "id": "classify-invoice_review-1.0",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "invoice_review",
+      "confidence": 1.0
+    },
+    {
+      "id": "classify-contract_request-0.84",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "contract_request",
+      "confidence": 0.84
+    },
+    {
+      "id": "classify-contract_request-0.85",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "contract_request",
+      "confidence": 0.85
+    },
+    {
+      "id": "classify-contract_request-1.0",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "contract_request",
+      "confidence": 1.0
+    },
+    {
+      "id": "classify-unknown-0.84",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "unknown",
+      "confidence": 0.84
+    },
+    {
+      "id": "classify-unknown-0.85",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "unknown",
+      "confidence": 0.85
+    },
+    {
+      "id": "classify-unknown-1.0",
+      "family": "classification",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "unknown",
+      "confidence": 1.0
+    },
+    {
+      "id": "field-company_name-missing",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "company_name",
+      "mutation": "missing"
+    },
+    {
+      "id": "field-company_name-unknown_source",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "company_name",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "field-company_name-invented_quote",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "company_name",
+      "mutation": "invented_quote"
+    },
+    {
+      "id": "field-company_name-low_confidence",
+      "family": "field",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "field": "company_name",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "field-tax_id-missing",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "mutation": "missing"
+    },
+    {
+      "id": "field-tax_id-unknown_source",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "field-tax_id-invented_quote",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "mutation": "invented_quote"
+    },
+    {
+      "id": "field-tax_id-low_confidence",
+      "family": "field",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "field": "tax_id",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "field-contact_name-missing",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_name",
+      "mutation": "missing"
+    },
+    {
+      "id": "field-contact_name-unknown_source",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_name",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "field-contact_name-invented_quote",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_name",
+      "mutation": "invented_quote"
+    },
+    {
+      "id": "field-contact_name-low_confidence",
+      "family": "field",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "field": "contact_name",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "field-contact_email-missing",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "mutation": "missing"
+    },
+    {
+      "id": "field-contact_email-unknown_source",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "field-contact_email-invented_quote",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "mutation": "invented_quote"
+    },
+    {
+      "id": "field-contact_email-low_confidence",
+      "family": "field",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "field": "contact_email",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "field-insurance_expiration-missing",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "insurance_expiration",
+      "mutation": "missing"
+    },
+    {
+      "id": "field-insurance_expiration-unknown_source",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "insurance_expiration",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "field-insurance_expiration-invented_quote",
+      "family": "field",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "insurance_expiration",
+      "mutation": "invented_quote"
+    },
+    {
+      "id": "field-insurance_expiration-low_confidence",
+      "family": "field",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "field": "insurance_expiration",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "document-tax_form-missing",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "tax_form",
+      "mutation": "missing"
+    },
+    {
+      "id": "document-tax_form-unknown_source",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "tax_form",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "document-tax_form-request_source",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "tax_form",
+      "mutation": "request_source"
+    },
+    {
+      "id": "document-tax_form-low_confidence",
+      "family": "document",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "tax_form",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "document-insurance_certificate-missing",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "insurance_certificate",
+      "mutation": "missing"
+    },
+    {
+      "id": "document-insurance_certificate-unknown_source",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "insurance_certificate",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "document-insurance_certificate-request_source",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "insurance_certificate",
+      "mutation": "request_source"
+    },
+    {
+      "id": "document-insurance_certificate-low_confidence",
+      "family": "document",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "insurance_certificate",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "document-bank_confirmation-missing",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "bank_confirmation",
+      "mutation": "missing"
+    },
+    {
+      "id": "document-bank_confirmation-unknown_source",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "bank_confirmation",
+      "mutation": "unknown_source"
+    },
+    {
+      "id": "document-bank_confirmation-request_source",
+      "family": "document",
+      "expected_state": "NEEDS_INFORMATION",
+      "kind": "bank_confirmation",
+      "mutation": "request_source"
+    },
+    {
+      "id": "document-bank_confirmation-low_confidence",
+      "family": "document",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "kind": "bank_confirmation",
+      "mutation": "low_confidence"
+    },
+    {
+      "id": "tax-format-1",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "value": "123"
+    },
+    {
+      "id": "tax-format-2",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "value": "000000000"
+    },
+    {
+      "id": "tax-format-3",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "value": "12-34567890"
+    },
+    {
+      "id": "tax-format-4",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "value": "\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19"
+    },
+    {
+      "id": "tax-format-5",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "value": "AA-1234567"
+    },
+    {
+      "id": "tax-format-6",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "tax_id",
+      "value": "12 3456789"
+    },
+    {
+      "id": "email-format-1",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "value": "not-an-email"
+    },
+    {
+      "id": "email-format-2",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "value": "contact@"
+    },
+    {
+      "id": "email-format-3",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "value": "@example.com"
+    },
+    {
+      "id": "email-format-4",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "value": "a b@example.com"
+    },
+    {
+      "id": "email-format-5",
+      "family": "format",
+      "expected_state": "NEEDS_INFORMATION",
+      "field": "contact_email",
+      "value": "person@@example.com"
+    },
+    {
+      "id": "insurance-boundary--365",
+      "family": "expiry",
+      "expected_state": "NEEDS_INFORMATION",
+      "days": -365
+    },
+    {
+      "id": "insurance-boundary--1",
+      "family": "expiry",
+      "expected_state": "NEEDS_INFORMATION",
+      "days": -1
+    },
+    {
+      "id": "insurance-boundary-0",
+      "family": "expiry",
+      "expected_state": "NEEDS_INFORMATION",
+      "days": 0
+    },
+    {
+      "id": "insurance-boundary-1",
+      "family": "expiry",
+      "expected_state": "NEEDS_INFORMATION",
+      "days": 1
+    },
+    {
+      "id": "insurance-boundary-29",
+      "family": "expiry",
+      "expected_state": "NEEDS_INFORMATION",
+      "days": 29
+    },
+    {
+      "id": "insurance-boundary-30",
+      "family": "expiry",
+      "expected_state": "PENDING_APPROVAL",
+      "days": 30
+    },
+    {
+      "id": "insurance-boundary-31",
+      "family": "expiry",
+      "expected_state": "PENDING_APPROVAL",
+      "days": 31
+    },
+    {
+      "id": "decision-requester-approve-other",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "requester",
+      "decision": "approve",
+      "own": false,
+      "allowed": false
+    },
+    {
+      "id": "decision-requester-approve-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "requester",
+      "decision": "approve",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-requester-reject-other",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "requester",
+      "decision": "reject",
+      "own": false,
+      "allowed": false
+    },
+    {
+      "id": "decision-requester-reject-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "requester",
+      "decision": "reject",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-requester-request_changes-other",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "requester",
+      "decision": "request_changes",
+      "own": false,
+      "allowed": false
+    },
+    {
+      "id": "decision-requester-request_changes-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "requester",
+      "decision": "request_changes",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-reviewer-approve-other",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "reviewer",
+      "decision": "approve",
+      "own": false,
+      "allowed": false
+    },
+    {
+      "id": "decision-reviewer-approve-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "reviewer",
+      "decision": "approve",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-reviewer-reject-other",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "reviewer",
+      "decision": "reject",
+      "own": false,
+      "allowed": false
+    },
+    {
+      "id": "decision-reviewer-reject-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "reviewer",
+      "decision": "reject",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-reviewer-request_changes-other",
+      "family": "decision",
+      "expected_state": "NEEDS_INFORMATION",
+      "role": "reviewer",
+      "decision": "request_changes",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-reviewer-request_changes-own",
+      "family": "decision",
+      "expected_state": "NEEDS_INFORMATION",
+      "role": "reviewer",
+      "decision": "request_changes",
+      "own": true,
+      "allowed": true
+    },
+    {
+      "id": "decision-approver-approve-other",
+      "family": "decision",
+      "expected_state": "COMPLETED",
+      "role": "approver",
+      "decision": "approve",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-approver-approve-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "approver",
+      "decision": "approve",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-approver-reject-other",
+      "family": "decision",
+      "expected_state": "REJECTED",
+      "role": "approver",
+      "decision": "reject",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-approver-reject-own",
+      "family": "decision",
+      "expected_state": "REJECTED",
+      "role": "approver",
+      "decision": "reject",
+      "own": true,
+      "allowed": true
+    },
+    {
+      "id": "decision-approver-request_changes-other",
+      "family": "decision",
+      "expected_state": "NEEDS_INFORMATION",
+      "role": "approver",
+      "decision": "request_changes",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-approver-request_changes-own",
+      "family": "decision",
+      "expected_state": "NEEDS_INFORMATION",
+      "role": "approver",
+      "decision": "request_changes",
+      "own": true,
+      "allowed": true
+    },
+    {
+      "id": "decision-admin-approve-other",
+      "family": "decision",
+      "expected_state": "COMPLETED",
+      "role": "admin",
+      "decision": "approve",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-admin-approve-own",
+      "family": "decision",
+      "expected_state": "PENDING_APPROVAL",
+      "role": "admin",
+      "decision": "approve",
+      "own": true,
+      "allowed": false
+    },
+    {
+      "id": "decision-admin-reject-other",
+      "family": "decision",
+      "expected_state": "REJECTED",
+      "role": "admin",
+      "decision": "reject",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-admin-reject-own",
+      "family": "decision",
+      "expected_state": "REJECTED",
+      "role": "admin",
+      "decision": "reject",
+      "own": true,
+      "allowed": true
+    },
+    {
+      "id": "decision-admin-request_changes-other",
+      "family": "decision",
+      "expected_state": "NEEDS_INFORMATION",
+      "role": "admin",
+      "decision": "request_changes",
+      "own": false,
+      "allowed": true
+    },
+    {
+      "id": "decision-admin-request_changes-own",
+      "family": "decision",
+      "expected_state": "NEEDS_INFORMATION",
+      "role": "admin",
+      "decision": "request_changes",
+      "own": true,
+      "allowed": true
+    },
+    {
+      "id": "retry-classify-1",
+      "family": "retry",
+      "expected_state": "PENDING_APPROVAL",
+      "stage": "classify",
+      "failures": 1,
+      "retryable": true
+    },
+    {
+      "id": "retry-classify-2",
+      "family": "retry",
+      "expected_state": "PENDING_APPROVAL",
+      "stage": "classify",
+      "failures": 2,
+      "retryable": true
+    },
+    {
+      "id": "retry-classify-3",
+      "family": "retry",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "stage": "classify",
+      "failures": 3,
+      "retryable": true
+    },
+    {
+      "id": "retry-classify-permanent",
+      "family": "retry",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "stage": "classify",
+      "failures": 0,
+      "retryable": false
+    },
+    {
+      "id": "retry-extract-1",
+      "family": "retry",
+      "expected_state": "PENDING_APPROVAL",
+      "stage": "extract",
+      "failures": 1,
+      "retryable": true
+    },
+    {
+      "id": "retry-extract-2",
+      "family": "retry",
+      "expected_state": "PENDING_APPROVAL",
+      "stage": "extract",
+      "failures": 2,
+      "retryable": true
+    },
+    {
+      "id": "retry-extract-3",
+      "family": "retry",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "stage": "extract",
+      "failures": 3,
+      "retryable": true
+    },
+    {
+      "id": "retry-extract-permanent",
+      "family": "retry",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "stage": "extract",
+      "failures": 0,
+      "retryable": false
+    },
+    {
+      "id": "execution-replay-1",
+      "family": "execution_replay",
+      "expected_state": "COMPLETED",
+      "repeats": 1
+    },
+    {
+      "id": "execution-replay-5",
+      "family": "execution_replay",
+      "expected_state": "COMPLETED",
+      "repeats": 5
+    },
+    {
+      "id": "execution-replay-20",
+      "family": "execution_replay",
+      "expected_state": "COMPLETED",
+      "repeats": 20
+    },
+    {
+      "id": "intake-replay-same",
+      "family": "intake_replay",
+      "expected_state": "PENDING_APPROVAL",
+      "mutation": "same"
+    },
+    {
+      "id": "intake-replay-reverse_attachments",
+      "family": "intake_replay",
+      "expected_state": "PENDING_APPROVAL",
+      "mutation": "reverse_attachments"
+    },
+    {
+      "id": "intake-replay-changed_payload",
+      "family": "intake_replay",
+      "expected_state": "PENDING_APPROVAL",
+      "mutation": "changed_payload"
+    },
+    {
+      "id": "revoked-approver-disabled",
+      "family": "revocation",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "mutation": "disabled"
+    },
+    {
+      "id": "revoked-approver-downgraded",
+      "family": "revocation",
+      "expected_state": "NEEDS_MANUAL_REVIEW",
+      "mutation": "downgraded"
+    }
+  ]
+}

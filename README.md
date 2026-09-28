@@ -1,5 +1,7 @@
 # FlowPilot
 
+[![CI](https://github.com/omkarchittar/flowpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/omkarchittar/flowpilot/actions/workflows/ci.yml)
+
 A vendor onboarding system with deterministic validation, revision-bound human approvals and auditable execution.
 
 **Status: backend, workflow benchmark and operations console implemented; release verification in progress.**
@@ -27,7 +29,7 @@ Live-model measurements and the final release package remain in progress.
 
 Current local verification: **292 backend tests pass with PostgreSQL 17 and 9 browser journeys pass**,
 including the complete 102-scenario benchmark. Type checking, lint, formatting and the standalone
-production build pass. The same nine browser journeys also pass against the Linux/arm64 Docker Compose stack. Live model accuracy and remote publication remain unverified.
+production build pass. The same nine browser journeys also pass against the Linux/arm64 Docker Compose stack. Live model accuracy and public deployment remain open.
 
 ## Console preview
 
@@ -228,10 +230,12 @@ checks migration downgrade/upgrade and Docker image compilation.
 Test fixture provider responses are controlled HTTP responses used to exercise
 adapter contracts. They are not fabricated live model quality results.
 
+See [published source and CI evidence](docs/release-verification.md).
+
 ## Remaining release verification
 
-Live-provider extraction measurements, an executed GitHub release and public
-deployment remain pending. Local Linux/arm64 container verification passes all nine
+Live-provider extraction measurements and public deployment remain pending. Source,
+remote CI and the `v0.1.0-rc.1` images are published and verified. Local Linux/arm64 container verification passes all nine
 browser journeys. The interactive frontend, architecture/state
 diagrams, screenshots, demo GIF, benchmark harness, deployment instructions and
 quality-gated image publishing workflow are implemented. See the

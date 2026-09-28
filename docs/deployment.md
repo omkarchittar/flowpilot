@@ -4,8 +4,8 @@ The repository provides nonroot API/worker and frontend images and a local Compo
 Both images build and all nine browser journeys pass against the local Linux/arm64
 Compose stack, including migrations, the separate worker and containerized PostgreSQL.
 The model endpoint uses controlled fictional fixtures, which verifies packaging and
-service integration. Live-provider measurements, amd64 execution, remote image publication
-and public HTTPS deployment remain unverified.
+service integration. Live-provider measurements, amd64 runtime execution and public HTTPS deployment remain
+unverified. [Remote CI and amd64/arm64 image publication](release-verification.md) passed.
 
 ## Configuration and startup
 
@@ -82,7 +82,12 @@ execution retains its idempotency key; never invent a new key to retry a complet
 
 The `Publish verified images` workflow starts on a pushed `v*` tag. It calls the complete quality workflow for that exact tagged commit before publishing API and console images to GHCR. API and worker use the same image. Publishing has package-write permission only in the publishing job; pull-request CI remains read-only. Actions in the publishing job are commit-pinned. Images include source/revision metadata, BuildKit provenance and SBOMs, and are built for Linux amd64/arm64. No mutable `latest` tag is created.
 
-The workflow uses GitHub's documented [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) and [container publishing](https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images) mechanisms. The definitions have been locally checked; successful remote publishing still needs execution evidence.
+The workflow uses GitHub's documented [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) and [container publishing](https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images) mechanisms. The first release-candidate run succeeded; [publication evidence and image digests](release-verification.md) are recorded separately from deployment evidence.
+
+The verified release-candidate images allow anonymous pulls. For private packages, authenticate on the deployment
+host with a classic token that has `read:packages` and access to the package, supplied through
+`docker login ghcr.io --username YOUR-USER --password-stdin`. Keep registry credentials in the
+host's secret store. Public packages allow anonymous pulls. See [GitHub registry authentication](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
 After a successful tag run, copy each image digest from its job summary into the deployment secret/environment configuration:
 

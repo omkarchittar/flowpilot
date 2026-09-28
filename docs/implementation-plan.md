@@ -56,9 +56,10 @@ adding intermediate approval gates. Record actual test results here, not intenti
 
 - [x] Operations console, screenshots, demo GIF and local Linux/arm64 container verification.
 - [x] Reviewed quality-gated release workflow definitions.
-- [ ] Live-provider measurements, remote publishing and public deployment verification.
+- [x] Remote CI and amd64/arm64 release-candidate image publication.
+- [ ] Live-provider measurements and public deployment verification.
 
-- [ ] Deliverable: `frontend/, Dockerfile, compose.yaml, .github/workflows/`.
+- [x] Deliverable: `frontend/, Dockerfile, compose.yaml, .github/workflows/`.
 - [ ] Behavior evidence: Request → validation → approval → execution timeline browser journey; responsive UI; CI/builds; screenshots, GIF and security runbook.
 - [ ] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
 - [ ] Commit the verified increment and record evidence below.
@@ -228,3 +229,38 @@ adding intermediate approval gates. Record actual test results here, not intenti
   publishing route. Live-provider keys and a public hosting target remain unavailable.
 - Remote CI/publication evidence is still pending at this checkpoint. Final completion
   remains unproven until the open gates in the acceptance audit are satisfied.
+
+
+### Published source and release candidate — 2026-09-28
+
+- Published the complete source history to the supplied public GitHub repository. An initial
+  HTTP transport failure left the remote empty; a per-command buffered upload succeeded.
+  Verified the remote main SHA matches the local source commit.
+- Remote main CI passed all four jobs: backend/PostgreSQL/schema/migration checks,
+  frontend quality/browser checks and both Docker image builds. Exact run links and
+  observed test counts are in `docs/release-verification.md`.
+- Tagged the verified source as `v0.1.0-rc.1`. Release run **36397854358** passed all six
+  quality/publishing jobs and published API/console images for amd64 and arm64.
+- Independently read all published index/platform manifests, image configs and SPDX/SLSA
+  statement blobs anonymously from GHCR. Checked SHA-256 values, source revision labels,
+  nonroot runtime users and matching attestation subjects. Saved exact digests and scope
+  in `docs/release-images.json`; the registry supports anonymous access for these images.
+- Added the CI badge, linked publication evidence and registry authentication guidance.
+  No stable/final release or public application deployment is claimed. The published
+  registry images still need runtime smoke verification; earlier container checks used
+  local builds. Live-provider credentials and a hosting target remain outstanding.
+
+
+### Published-image runtime verification — 2026-09-28
+
+- Pulled the exact GHCR release-candidate digests recorded in `docs/release-images.json`
+  anonymously and deployed them through `compose.release.yaml` into fresh disposable
+  local Linux/arm64 projects. Verified running containers use those digests and nonroot users.
+- Migrations and API/database readiness passed. **9/9 complete browser journeys passed
+  (49.9s)** against the published frontend/API, independent worker and PostgreSQL,
+  with the existing controlled provider fixture. No application responses were substituted
+  in the browser and no live-model API key was used.
+- Removed the disposable projects/volumes, runner configuration and temporary credentials.
+  Registry verification and local runtime evidence are recorded separately from real-provider
+  quality and public deployment. Only the latter two gates still depend on missing credentials
+  and a hosting target; final acceptance will inspect those resulting reports and deployment.

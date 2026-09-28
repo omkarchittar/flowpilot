@@ -46,7 +46,7 @@ and unresolved release gates; it does not certify the final release.
 - [CI](../.github/workflows/ci.yml) runs tests on every pull request/main push, checks
   migrations, exports scenario evidence and builds images. The tag-triggered
   [release workflow](../.github/workflows/release.yml) waits for all quality gates.
-  Remote execution and publication are still open.
+  [Remote CI and image publication](release-verification.md) passed for the audited source commit.
 
 ## Evaluation and portfolio criteria
 
@@ -58,8 +58,10 @@ and unresolved release gates; it does not certify the final release.
 | Completion/retry/duplicate effects | Saved report includes denominators: 102 expected outcomes, 4/6 injected transient recoveries, 0 duplicate vendors | Measured controlled contracts; not production rates |
 | Every sensitive effect independently approved; auditable state changes | 10/10 approved sensitive effects, 102/102 complete audit checks, deliberate omitted-event sabotage tests | Verified within test scope |
 | README architecture, state machine, screenshots, GIF, reliability/security | Embedded diagrams, recorded app assets, design decisions and [operations runbook](deployment.md) | Present |
-| Deployment and portfolio launch | Local Docker journeys and deployment/release definitions | Remote CI, registry publication, public deployment and final release open |
+| Deployment and portfolio launch | Local Docker journeys and deployment/release definitions | Remote CI/registry publication verified; public deployment and final release open |
 
 Required next evidence: real-provider classification/extraction report with inspected errors;
-successful remote CI and image publication; selected hosting environment and a verified deployed
+selected hosting environment and a verified deployed
 workflow. Controlled extraction receipts are not a replacement for measured model accuracy.
+
+The [release evidence](release-verification.md) additionally records anonymous registry verification and all 9 browser journeys passing against the exact published Linux/arm64 image digests. Public deployment and live-model measurements remain open.

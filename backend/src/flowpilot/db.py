@@ -1,0 +1,43 @@
+"""Explicit session lifetime. Importing the module never connects to a database."""
+
+from collections.abc import Iterator
+from contextlib import contextmanager
+from datetime import UTC, datetime
+from uuid import uuid4
+
+from sqlalchemy import MetaData, create_engine
+from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+
+
+class Base(DeclarativeBase):
+    metadata = MetaData(
+        naming_convention={
+            "ix": "ix_%(column_0_label)s",
+            "uq": "uq_%(table_name)s_%(column_0_name)s",
+            "ck": "ck_%(table_name)s_%(constraint_name)s",
+            "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+            "pk": "pk_%(table_name)s",
+        }
+    )
+
+
+def new_id() -> str:
+    return str(uuid4())
+
+
+def utcnow() -> datetime:
+    return datetime.now(UTC)
+
+
+class Database:
+    def __init__(self, url: str):
+        self.engine = create_engine(url, pool_pre_ping=True, pool_size=5, max_overflow=10)
+        self.sessions = sessionmaker(self.engine, expire_on_commit=False)
+
+    @contextmanager
+    def transaction(self) -> Iterator[Session]:
+        with self.sessions.begin() as session:
+            yield session
+
+    def close(self) -> None:
+        self.engine.dispose()

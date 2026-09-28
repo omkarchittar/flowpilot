@@ -1,8 +1,11 @@
 # Deployment and operations
 
 The repository provides nonroot API/worker and frontend images and a local Compose stack.
-Native service and browser behavior has been tested; Docker and a public deployment still
-need execution verification before a release is described as deployed.
+Both images build and all nine browser journeys pass against the local Linux/arm64
+Compose stack, including migrations, the separate worker and containerized PostgreSQL.
+The model endpoint uses controlled fictional fixtures, which verifies packaging and
+service integration. Live-provider measurements, amd64 execution, remote image publication
+and public HTTPS deployment remain unverified.
 
 ## Configuration and startup
 
@@ -74,3 +77,22 @@ with compatible migrations; do not run destructive migration downgrades against 
 Database migration roundtrips in CI use disposable databases. Stop workers during an
 incompatible migration and let current leases expire before recovery. Replaying an approved
 execution retains its idempotency key; never invent a new key to retry a completed effect.
+
+## Versioned image publishing
+
+The `Publish verified images` workflow starts on a pushed `v*` tag. It calls the complete quality workflow for that exact tagged commit before publishing API and console images to GHCR. API and worker use the same image. Publishing has package-write permission only in the publishing job; pull-request CI remains read-only. Actions in the publishing job are commit-pinned. Images include source/revision metadata, BuildKit provenance and SBOMs, and are built for Linux amd64/arm64. No mutable `latest` tag is created.
+
+The workflow uses GitHub's documented [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) and [container publishing](https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images) mechanisms. The definitions have been locally checked; successful remote publishing still needs execution evidence.
+
+After a successful tag run, copy each image digest from its job summary into the deployment secret/environment configuration:
+
+```sh
+export FLOWPILOT_API_IMAGE='ghcr.io/OWNER/flowpilot-api@sha256:API_DIGEST'
+export FLOWPILOT_CONSOLE_IMAGE='ghcr.io/OWNER/flowpilot-console@sha256:CONSOLE_DIGEST'
+docker compose -f compose.yaml -f compose.release.yaml pull
+docker compose -f compose.yaml -f compose.release.yaml up --no-build -d
+```
+
+The release override intentionally keeps the same migrations, health checks, environment, volumes and worker wiring as local Compose. Set actual digest values; the placeholders above are documentation, not runnable image references. Tag names can be moved by repository writers, so deploy by digest and protect release tags in repository settings. For rollback, retain the previous digest pair and confirm schema compatibility before replacing services. If a matrix publication fails after one image is pushed, do not deploy that partial release; require the whole workflow to succeed.
+
+Public HTTPS infrastructure and deployment credentials are environment-specific and are not provisioned by image publication. A registry upload is not evidence of a running deployment.

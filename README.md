@@ -27,7 +27,7 @@ Live-model measurements and the final release package remain in progress.
 
 Current local verification: **292 backend tests pass with PostgreSQL 17 and 9 browser journeys pass**,
 including the complete 102-scenario benchmark. Type checking, lint, formatting and the standalone
-production build pass. Live model accuracy, Docker image execution and the final release remain unverified.
+production build pass. The same nine browser journeys also pass against the Linux/arm64 Docker Compose stack. Live model accuracy and remote publication remain unverified.
 
 ## Console preview
 
@@ -56,6 +56,12 @@ See the [saved scenario report](benchmarks/results/workflow-contracts.json) and
 Live extraction measurements will be published separately; authored labels and contract fixtures
 are not presented as model-generated benchmark scores.
 
+## Product walkthrough
+
+![Recorded FlowPilot walkthrough](docs/demo.gif)
+
+Fictional vendor documents and a controlled local model fixture. The recording shows independent human approval, durable execution and the audit trail. [Recording provenance and regeneration](docs/demo.md).
+
 ## Architecture
 
 See [architecture and tradeoffs](docs/architecture.md) for the component diagram,
@@ -82,7 +88,7 @@ only to localhost. Keep `/metrics` internal behind the deployment gateway.
 
 Compose starts PostgreSQL, runs the migrations as a separate one-shot service and
 then starts the API, a separate durable worker and the frontend. The frontend image bakes in the
-internal API address at build time. Docker execution remains unverified in this local environment.
+internal API address at build time. Local Linux/arm64 Docker verification passes the complete nine-journey browser suite.
 
 ## Native development
 
@@ -162,11 +168,11 @@ checks migration downgrade/upgrade and Docker image compilation.
 Test fixture provider responses are controlled HTTP responses used to exercise
 adapter contracts. They are not fabricated live model quality results.
 
-## Next milestones
+## Remaining release verification
 
-Live-provider extraction measurements; deployment verification;
-release pipeline; final screenshots and demo GIF.
-
-The final release will include measured benchmarks, an interactive frontend,
-architecture/state diagrams, screenshots, a demo GIF, deployment instructions and
-an explanation of failure cases and design decisions.
+Live-provider extraction measurements, an executed GitHub release and public
+deployment remain pending. Local Linux/arm64 container verification passes all nine
+browser journeys. The interactive frontend, architecture/state
+diagrams, screenshots, demo GIF, benchmark harness, deployment instructions and
+quality-gated image publishing workflow are implemented. See the
+[implementation ledger](docs/implementation-plan.md) for verified evidence and limits.

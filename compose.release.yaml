@@ -1,0 +1,10 @@
+# Combine with compose.yaml and use --no-build. Set digest-pinned image references.
+services:
+  migrate:
+    image: ${FLOWPILOT_API_IMAGE:?Set FLOWPILOT_API_IMAGE to the published api image digest}
+  api:
+    image: ${FLOWPILOT_API_IMAGE:?Set FLOWPILOT_API_IMAGE to the published api image digest}
+  worker:
+    image: ${FLOWPILOT_API_IMAGE:?Set FLOWPILOT_API_IMAGE to the published api image digest}
+  frontend:
+    image: ${FLOWPILOT_CONSOLE_IMAGE:?Set FLOWPILOT_CONSOLE_IMAGE to the published console image digest}

@@ -10,8 +10,9 @@
     "lint": "eslint .",
     "test:e2e": "playwright test",
     "serve:e2e": "FLOWPILOT_API_URL=http://127.0.0.1:18081 npm run build && PORT=3101 HOSTNAME=127.0.0.1 node .next/standalone/server.js",
-    "format": "prettier --write src tests/*.ts scripts *.ts *.mjs *.json",
-    "format:check": "prettier --check src tests/*.ts scripts *.ts *.mjs *.json"
+    "format": "prettier --write src tests/*.ts demos/*.ts scripts *.ts *.mjs *.json",
+    "format:check": "prettier --check src tests/*.ts demos/*.ts scripts *.ts *.mjs *.json",
+    "record:demo": "playwright test --config demo.config.ts"
   },
   "dependencies": {
     "lucide-react": "1.48.0",

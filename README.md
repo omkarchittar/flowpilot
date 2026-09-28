@@ -64,11 +64,71 @@ Fictional vendor documents and a controlled local model fixture. The recording s
 
 ## Architecture
 
+```mermaid
+flowchart LR
+  UI[Next.js operations console] --> API[FastAPI / RBAC]
+  API --> DB[(PostgreSQL)]
+  DB --> Worker[Leased job worker]
+  Worker --> AI[Classification / structured extraction]
+  Worker --> Rules[Deterministic policy validation]
+  Rules --> Approval[Persisted human approval]
+  Rules --> Brief[Queued advisory AI review brief]
+  Brief --> UI
+  Approval --> Tools[Allowlisted idempotent tools]
+  Tools --> Registry[Vendor registry / notification outbox]
+  Worker --> Audit[Append-only redacted audit events]
+```
+
 See [architecture and tradeoffs](docs/architecture.md) for the component diagram,
 relational invariants and security/reliability design. The [source PRD](docs/PRD.md)
 is preserved from the supplied Word document. The [implementation plan](docs/implementation-plan.md)
-tracks the complete scope and evidence. The [deployment and security runbook](docs/deployment.md)
+tracks the complete scope and evidence. The [acceptance audit](docs/acceptance.md) maps each required capability to implementation and verification, with open release gates kept explicit. The [deployment and security runbook](docs/deployment.md)
 covers HTTPS, secret handling, worker recovery, backups and trust boundaries.
+
+## Workflow state machine
+
+```mermaid
+stateDiagram-v2
+  [*] --> RECEIVED
+  RECEIVED --> CLASSIFYING
+  CLASSIFYING --> EXTRACTING
+  CLASSIFYING --> NEEDS_MANUAL_REVIEW
+  EXTRACTING --> VALIDATING
+  EXTRACTING --> NEEDS_MANUAL_REVIEW
+  VALIDATING --> NEEDS_INFORMATION
+  VALIDATING --> PENDING_APPROVAL
+  VALIDATING --> NEEDS_MANUAL_REVIEW
+  NEEDS_INFORMATION --> CLASSIFYING
+  NEEDS_INFORMATION --> REJECTED
+  PENDING_APPROVAL --> EXECUTING
+  PENDING_APPROVAL --> REJECTED
+  PENDING_APPROVAL --> NEEDS_INFORMATION
+  PENDING_APPROVAL --> NEEDS_MANUAL_REVIEW
+  EXECUTING --> COMPLETED
+  EXECUTING --> NEEDS_MANUAL_REVIEW
+  NEEDS_MANUAL_REVIEW --> CLASSIFYING
+  NEEDS_MANUAL_REVIEW --> REJECTED
+  COMPLETED --> [*]
+  REJECTED --> [*]
+```
+
+This shows every allowed transition from the [domain state model](backend/src/flowpilot/domain.py).
+Each command also checks role, ownership, revision and policy. Moving from approval to
+execution requires an independent authorized decision for the current revision. Revisions
+restart classification and invalidate old approval. Terminal workflows cannot be reopened.
+
+## Engineering decisions and limits
+
+A custom state machine keeps transitions and authority visible in ordinary Python.
+The model proposes structured facts; deterministic policy and human approval authorize
+side effects. Vendor creation, its idempotency receipt and audit event commit together.
+Advisory AI briefs have their own retries and cannot approve or block valid execution.
+
+The v1 integration is a persisted vendor registry and in-app notification outbox.
+There is no claimed ERP or email delivery. Source quotes establish provenance, not the
+truth of a business document; reviewers still assess the evidence. The deployment
+runbook covers encryption-key backup and the database administrator trust boundary.
+[Failure analysis](docs/failure-analysis.md) explains tested failures and live-model limits.
 
 ## Run with Docker
 

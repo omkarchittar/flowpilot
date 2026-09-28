@@ -210,3 +210,21 @@ adding intermediate approval gates. Record actual test results here, not intenti
 - Remaining: measured live-provider benchmark reports with failure analysis, remote CI/
   registry evidence, public deployment and final PRD acceptance audit. No real-provider
   API credentials or deployment target have been supplied. Full release scope remains open.
+
+
+### Acceptance mapping and portfolio documentation — 2026-09-28
+
+- Audited the source PRD against current modules, tests, UI routes, benchmark artifacts
+  and execution evidence. Added `docs/acceptance.md` with each functional requirement,
+  required UI/reliability behavior, success criterion and explicit unresolved release gate.
+- Embedded the architecture directly in the README, added design tradeoffs and linked
+  tested failure analysis. FlowPilot now includes every allowed transition from its domain
+  state model. EvalRAG explicitly distinguishes benchmark readiness from unmeasured scores.
+- Reran the complete backend check script on PostgreSQL: **292 tests pass**, Ruff/format
+  and schema drift checks pass. FlowPilot's 102-scenario report also passes. Documentation
+  links resolve; no runtime code changed in this documentation increment.
+- Confirmed both supplied GitHub repositories are empty and local Git dry-run publication
+  succeeds. The connector itself has read-only access; local Git credentials provide the
+  publishing route. Live-provider keys and a public hosting target remain unavailable.
+- Remote CI/publication evidence is still pending at this checkpoint. Final completion
+  remains unproven until the open gates in the acceptance audit are satisfied.

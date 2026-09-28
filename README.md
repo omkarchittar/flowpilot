@@ -21,7 +21,7 @@ benchmark/release package are still in progress.
 - FastAPI liveness/readiness, structured request logs, correlation IDs and Prometheus metrics.
 - Alembic migrations, reproducible dependency locks, non-root Dockerfile and backend CI definition.
 
-Current local verification: **155 tests pass against PostgreSQL 17**. This count includes unit, HTTP and database tests; it is not a claim that
+Current local verification: **156 tests pass against PostgreSQL 17**. This count includes unit, HTTP and database tests; it is not a claim that
 the final PRD benchmark/scenario requirements have been completed. Live provider calls
 and Docker image builds have not yet been verified in this environment.
 

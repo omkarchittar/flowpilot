@@ -136,3 +136,16 @@ def test_blank_normalized_quotes_cannot_satisfy_required_documents(quote):
         document["quote"] = quote
     candidate = verified_candidate(Extraction.model_validate(payload), sources())
     assert candidate.documents == []
+
+
+def test_protocol_disconnect_retries_without_logging_transport_details():
+    def disconnect(request):
+        raise httpx.RemoteProtocolError("private transport message")
+
+    provider = OpenAIWorkflowProvider(
+        "test", model="gpt-4.1-mini", client=httpx.Client(transport=httpx.MockTransport(disconnect))
+    )
+    with pytest.raises(ProviderError) as error:
+        provider.classify("Please onboard Acme.")
+    assert error.value.code == "provider_unavailable" and error.value.retryable
+    assert "private" not in str(error.value)

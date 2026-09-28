@@ -92,3 +92,9 @@ adding intermediate approval gates. Record actual test results here, not intenti
 - Independent review found three concrete issues across the increment (blank evidence quotes, bootstrap validation secret exposure, PDF upload-size mismatch). Regression tests reproduced all three; fixes approved on re-review with no outstanding findings.
 - Compose now starts the worker and shares backend configuration. FlowPilot dependency locks include psutil. YAML and environment references validated, but actual Docker builds/startup remain unverified because Docker is unavailable.
 - These test totals are not live provider quality metrics or the final PRD benchmark corpus. Frontend, complete benchmark artifacts and release presentation remain outstanding. No remote push or deployment performed.
+
+### Provider disconnect correction — 2026-09-28
+
+- Applied the provider-boundary finding from EvalRAG review: HTTP protocol disconnects are transient provider failures, not unclassified worker errors.
+- Reproduced with httpx.RemoteProtocolError, fixed by catching the TransportError family, and verified safe retry classification without exposing transport details.
+- Updated suite: **156 passing tests** against PostgreSQL; lint/format pass.

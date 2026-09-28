@@ -189,7 +189,7 @@ class OpenAIWorkflowProvider:
                     headers={"Authorization": "Bearer " + self.key},
                     timeout=self.timeout,
                 )
-        except (httpx.TimeoutException, httpx.NetworkError) as exc:
+        except httpx.TransportError as exc:
             raise ProviderError("provider_unavailable", retryable=True) from exc
         if not response.is_success:
             raise ProviderError(

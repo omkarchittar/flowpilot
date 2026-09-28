@@ -11,6 +11,7 @@ from flowpilot.domain import State, validate_vendor
 from flowpilot.jobs import assert_owned, complete
 from flowpilot.models import Document
 from flowpilot.providers import verified_candidate
+from flowpilot.review_briefs import queue_review_brief
 from flowpilot.workflow_service import (
     change_state,
     duplicate_exists,
@@ -102,6 +103,7 @@ def process_request(database, lease, box, provider_factory):
                     else State.NEEDS_INFORMATION
                 )
                 change_state(db, workflow, target, actor_id="system", request_id=lease.id)
+                queue_review_brief(db, workflow, request_id=lease.id)
                 complete(db, lease)
                 return
         # Snapshot and stage have been committed. No locks remain during provider IO.
@@ -141,6 +143,8 @@ def process_request(database, lease, box, provider_factory):
                     else State.NEEDS_MANUAL_REVIEW
                 )
                 change_state(db, workflow, target, actor_id="system", request_id=lease.id)
+                if target == State.NEEDS_MANUAL_REVIEW:
+                    queue_review_brief(db, workflow, request_id=lease.id)
         elif stage == State.EXTRACTING:
             result = provider.extract(sources)
             candidate = verified_candidate(result.value, sources)

@@ -2537,3 +2537,40 @@ input[type="checkbox"] {
     white-space: normal;
   }
 }
+
+.review-brief-body {
+  padding: 20px 24px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #4e576a;
+}
+.review-brief-body > strong {
+  display: block;
+  margin-bottom: 5px;
+}
+.brief-references {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+.brief-references span {
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 11px;
+  color: #62557b;
+  background: #f0ebff;
+}
+.brief-provenance {
+  margin-top: 14px;
+  font-size: 11px;
+  color: #626b7d;
+}
+.brief-provenance summary {
+  cursor: pointer;
+  width: fit-content;
+}
+.brief-provenance p {
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}

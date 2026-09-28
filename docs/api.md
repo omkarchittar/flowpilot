@@ -95,3 +95,19 @@ avoid putting tax IDs or banking details in titles/comments.
 internal at your gateway. Logs omit raw documents, prompts, credentials and tax IDs.
 The automated suite uses controlled provider responses; it does not claim measured
 live model accuracy or final release benchmark coverage.
+
+
+## AI review brief
+
+Workflow detail includes nullable `review_brief`. New processed workflows have a persisted
+`status` (`pending`, `complete`, `failed`), `fingerprint` and redacted `context` with revision,
+source workflow state, assessment and issue IDs. Complete briefs add `result` (plain-text
+`summary`, matching `assessment`, exact `issue_refs`), `metadata` (model, tokens, latency,
+prompt version/fingerprint) and `generated_at`. Failed briefs expose a stable `error_code`.
+Existing workflows migrated from an earlier version may have no brief until their next
+processing/revision. No caller-provided brief can authorize a decision or vendor creation.
+
+A brief describes the recorded context, not a fresh policy check. Approval and execution
+revalidate independently. Changing the request clears the current brief; human changes requests
+and execution blocks queue a replacement. Raw source text and decision comments are not supplied
+to summary generation. All workflow-detail ownership and role checks apply to this data.

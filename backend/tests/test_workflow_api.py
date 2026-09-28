@@ -166,3 +166,40 @@ def test_audit_cursor_returns_every_event_with_verified_page_links(api, db):
             break
         cursor = page["next_cursor"]
     assert sequences == list(range(1, 7))
+
+
+def test_authorized_detail_exposes_persisted_brief_with_provenance(api, db):
+    from test_orchestration import FixtureProvider, Transactions
+
+    from flowpilot.worker import run_once
+
+    client, _, _ = api
+    configure(client)
+    owner = token(client)
+    created = client.post(
+        "/api/intake",
+        headers={**owner, "Idempotency-Key": "brief-api"},
+        json={"title": "Review request", "request_text": "Please onboard this fictional vendor."},
+    ).json()
+    database = Transactions(db)
+    run_once(database, client.app.state.settings, provider_factory=FixtureProvider)
+    run_once(database, client.app.state.settings, provider_factory=FixtureProvider)
+    response = client.get("/api/workflows/" + created["id"], headers=owner)
+    brief = response.json()["review_brief"]
+    assert brief["status"] == "complete"
+    assert brief["result"]["assessment"] == "blocked"
+    assert brief["metadata"]["model"] == "controlled-review-fixture"
+    assert "request_text" not in brief["context"]
+    db.add(
+        User(
+            email="outsider@example.com",
+            name="Other",
+            role="requester",
+            password_hash=hash_password(PASSWORD),
+        )
+    )
+    db.flush()
+    denied = client.get(
+        "/api/workflows/" + created["id"], headers=token(client, "outsider@example.com")
+    )
+    assert denied.status_code == 404 and "review_brief" not in denied.text

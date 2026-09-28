@@ -4,13 +4,14 @@ A vendor onboarding system with deterministic validation, revision-bound human a
 
 **Status: backend, workflow benchmark and operations console implemented; release verification in progress.**
 The console supports request intake, revisions, human decisions, audit inspection, inbox and team access.
-Live-model measurements, the AI-generated approval summary and the final release package remain in progress.
+Live-model measurements and the final release package remain in progress.
 
 ## Implemented and verified
 
 - Cookie sessions with CSRF protection, hashed API tokens, database-backed login throttling and administrative account management.
 - Encrypted, idempotent multipart intake, strict-schema AI classification/extraction and source-quote verification.
 - Durable processing and execution workers, bounded revisions, approval APIs and paginated audit verification.
+- AI review briefs generated from redacted policy facts, with revision fencing, model provenance and independent retries. Summary failures do not change approval authority.
 - Explicit workflow state graph and deterministic vendor policy validation.
 - Requester/reviewer/approver/admin decision rules, including prevention of self-approval.
 - Revision-bound approvals and revalidation immediately before side effects.
@@ -24,7 +25,7 @@ Live-model measurements, the AI-generated approval summary and the final release
 - Browser journeys against actual FastAPI/PostgreSQL and the production standalone frontend.
 - [102 named workflow scenarios and a 32-request extraction benchmark](benchmarks/README.md), with reproducible CLI reports and CI artifact generation.
 
-Current local verification: **271 backend tests pass with PostgreSQL 17 and 8 browser journeys pass**,
+Current local verification: **292 backend tests pass with PostgreSQL 17 and 9 browser journeys pass**,
 including the complete 102-scenario benchmark. Type checking, lint, formatting and the standalone
 production build pass. Live model accuracy, Docker image execution and the final release remain unverified.
 
@@ -163,7 +164,7 @@ adapter contracts. They are not fabricated live model quality results.
 
 ## Next milestones
 
-AI-generated readiness summaries; live-provider extraction measurements; deployment verification;
+Live-provider extraction measurements; deployment verification;
 release pipeline; final screenshots and demo GIF.
 
 The final release will include measured benchmarks, an interactive frontend,

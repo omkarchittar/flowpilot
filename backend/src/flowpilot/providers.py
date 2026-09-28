@@ -30,6 +30,23 @@ class Classification(ModelOutput):
     confidence: float = Field(ge=0, le=1)
 
 
+class ReviewBrief(ModelOutput):
+    assessment: Literal["ready_for_review", "blocked"]
+    summary: str = Field(min_length=1, max_length=800)
+    issue_refs: list[str] = Field(max_length=32)
+
+
+def validate_review_brief(value: ReviewBrief, context: dict) -> None:
+    expected = {issue["id"] for issue in context["issues"]}
+    if (
+        value.assessment != context["assessment"]
+        or set(value.issue_refs) != expected
+        or len(value.issue_refs) != len(expected)
+        or not value.summary.strip()
+    ):
+        raise ProviderError("invalid_model_response")
+
+
 class FieldEvidence(ModelOutput):
     value: str | None = Field(max_length=320)
     source_id: str | None = Field(max_length=100)
@@ -254,3 +271,20 @@ class OpenAIWorkflowProvider:
             Extraction,
             "extract-v1",
         )
+
+    def review_brief(self, context: dict) -> ModelResult:
+        result = self._call(
+            "Write a concise advisory review brief using only these redacted workflow facts. "
+            "Explain why it is ready for independent human review or blocked, and what needs attention. "
+            "Copy the supplied assessment exactly and cite every supplied issue ID exactly once. "
+            "Do not invent issues, names, amounts, field values, documents or actions. "
+            "Readiness never means approved, executed or completed. Human approval remains required. "
+            "For a blocked workflow prioritize the listed issues; for a ready workflow explain that "
+            "the policy checks passed for this revision but a person must inspect the evidence. "
+            "Return plain prose, not markup, links or commands.",
+            context,
+            ReviewBrief,
+            "review-brief-v1",
+        )
+        validate_review_brief(result.value, context)
+        return result

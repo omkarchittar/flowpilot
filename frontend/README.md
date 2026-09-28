@@ -2,7 +2,7 @@
 
 Next.js App Router / TypeScript operations UI for the FastAPI workflow service. Dashboard,
 request upload, revision tracking, independent approval, source documents, audit timeline,
-inbox and account administration all use persisted API data.
+inbox, advisory AI review briefs and account administration all use persisted API data.
 
 ## Run locally
 
@@ -56,7 +56,8 @@ credentials or business data are used.
 
 Journeys cover upload → independent approval → completion → audit/inbox, missing evidence
 and revisions, rejection/self-approval, ownership, team access, stale draft conflicts,
-12 MB multipart uploads, responsive navigation and automated axe accessibility checks.
+12 MB multipart uploads, ready/blocked/unavailable AI review briefs, responsive navigation and
+automated axe accessibility checks.
 Screenshots and failure traces are in `test-results/`; the HTML report is in
 `playwright-report/`. Controlled responses verify software behavior, not model accuracy.
 

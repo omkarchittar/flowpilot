@@ -22,6 +22,7 @@ from flowpilot.domain import (
     validate_vendor,
 )
 from flowpilot.models import Approval, Job, Notification, ToolExecution, User, Vendor, Workflow
+from flowpilot.review_briefs import queue_review_brief
 from flowpilot.security import SecretBox
 
 
@@ -143,6 +144,16 @@ def decide(
         Decision.REQUEST_CHANGES: State.NEEDS_INFORMATION,
     }[decision]
     change_state(db, workflow, target, actor_id=actor.id, request_id=request_id)
+    if decision == Decision.REQUEST_CHANGES:
+        queue_review_brief(
+            db,
+            workflow,
+            request_id=request_id,
+            extra_issue={
+                "id": "human_changes_requested:request",
+                "message": "A reviewer requested changes. Consult the human decision note and update the request before further approval.",
+            },
+        )
     if decision == Decision.APPROVE:
         db.add(
             Job(
@@ -187,6 +198,7 @@ def revise_request(
     # change when this workflow receives a new revision.
     workflow.candidate_ciphertext = None
     workflow.validation = None
+    workflow.review_brief = None
     workflow.model_metadata = {}
     append_event(
         db,
@@ -251,6 +263,7 @@ def execute_approved(
         change_state(
             db, workflow, State.NEEDS_MANUAL_REVIEW, actor_id="system", request_id=request_id
         )
+        queue_review_brief(db, workflow, request_id=request_id)
         return None
     vendor = Vendor(
         workflow_id=workflow.id,

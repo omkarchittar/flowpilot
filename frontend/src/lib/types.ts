@@ -80,7 +80,26 @@ export interface Approval {
   comment: string;
   created_at: string;
 }
+export interface ReviewBrief {
+  status: "pending" | "complete" | "failed";
+  fingerprint: string;
+  context: {
+    revision: number;
+    source_state: State;
+    assessment: "ready_for_review" | "blocked";
+    issues: { id: string; message: string }[];
+  };
+  result?: {
+    assessment: "ready_for_review" | "blocked";
+    summary: string;
+    issue_refs: string[];
+  };
+  metadata?: ModelCall;
+  generated_at?: string;
+  error_code?: string;
+}
 export interface WorkflowDetail extends Workflow {
+  review_brief: ReviewBrief | null;
   candidate: Candidate | null;
   documents: Document[];
   approvals: Approval[];

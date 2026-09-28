@@ -11,7 +11,7 @@ from flowpilot.config import Settings
 from flowpilot.domain import Decision
 from flowpilot.intake import accept_request, prepare_attachment
 from flowpilot.models import AuditEvent, Job, User, Vendor
-from flowpilot.providers import Classification, Extraction, ModelResult, ProviderError
+from flowpilot.providers import Classification, Extraction, ModelResult, ProviderError, ReviewBrief
 from flowpilot.security import SecretBox
 from flowpilot.worker import run_once
 from flowpilot.workflow_service import decide
@@ -48,6 +48,9 @@ class FixtureProvider:
             "classify-v1",
         )
 
+    def review_brief(self, context):
+        return fixture_review_brief(context)
+
     def extract(self, sources):
         payload = extraction_payload()
         ids = {
@@ -81,6 +84,21 @@ class FixtureProvider:
         return ModelResult(
             Extraction.model_validate(payload), "fixture-contract", 100, 60, 4, "extract-v1"
         )
+
+
+def fixture_review_brief(context):
+    return ModelResult(
+        ReviewBrief(
+            assessment=context["assessment"],
+            summary="Controlled fixture: review the policy findings and source evidence before any decision.",
+            issue_refs=[issue["id"] for issue in context["issues"]],
+        ),
+        "controlled-review-fixture",
+        90,
+        35,
+        2,
+        "review-brief-v1",
+    )
 
 
 @pytest.fixture
@@ -122,6 +140,8 @@ def test_request_to_approval_to_execution_requires_human_and_leaves_complete_aud
     database, settings, workflow, approver, box = work
     assert run_once(database, settings, provider_factory=lambda: FixtureProvider())
     assert workflow.status == "PENDING_APPROVAL"
+    assert run_once(database, settings, provider_factory=FixtureProvider)
+    assert workflow.review_brief["status"] == "complete"
     assert db.scalar(select(func.count()).select_from(Vendor)) == 0
     tools = set(db.scalars(select(AuditEvent.tool).where(AuditEvent.workflow_id == workflow.id)))
     assert {"extract_document", "validate_vendor", "check_duplicate_vendor"} <= tools

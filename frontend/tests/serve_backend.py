@@ -44,6 +44,18 @@ class Provider(BaseHTTPRequestHandler):
                 else "vendor_onboarding"
             )
             value = {"request_type": kind, "confidence": 0.99}
+        elif "assessment" in payload:
+            if payload["workflow_type"] == "invoice_review":
+                self.send_response(503)
+                self.end_headers()
+                return
+            value = {
+                "assessment": payload["assessment"],
+                "summary": "The policy checks passed for this revision. An independent person must review the evidence before authorizing vendor creation."
+                if payload["assessment"] == "ready_for_review"
+                else "The request is blocked by the recorded findings. Resolve them before independent review.",
+                "issue_refs": [issue["id"] for issue in payload["issues"]],
+            }
         else:
             sources = payload["sources"]
             value = {}

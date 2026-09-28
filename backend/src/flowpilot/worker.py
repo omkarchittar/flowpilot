@@ -18,6 +18,12 @@ from flowpilot.jobs import LeaseLost, assert_owned, claim, complete, fail, heart
 from flowpilot.models import Job, Workflow
 from flowpilot.orchestration import process_request
 from flowpilot.providers import OpenAIWorkflowProvider, ProviderError
+from flowpilot.review_briefs import (
+    generate_review_brief,
+    mark_brief_failed,
+    queue_review_brief,
+    reconcile_brief_failures,
+)
 from flowpilot.security import SecretBox
 from flowpilot.workflow_service import change_state, execute_approved, locked_workflow
 
@@ -62,6 +68,15 @@ def escalate(db, workflow, request_id, code):
         change_state(
             db, workflow, State.NEEDS_MANUAL_REVIEW, actor_id="system", request_id=request_id
         )
+        queue_review_brief(
+            db,
+            workflow,
+            request_id=request_id,
+            extra_issue={
+                "id": "processing_failed:workflow",
+                "message": "Automatic processing failed and requires manual review.",
+            },
+        )
 
 
 def reconcile_failures(database):
@@ -71,6 +86,7 @@ def reconcile_failures(database):
             .join(Job, Job.resource_id == Workflow.id)
             .where(
                 Job.status == "failed",
+                Job.kind != "review_brief",
                 Job.payload["revision"].as_integer() == Workflow.revision,
                 Workflow.status.in_(
                     [
@@ -87,6 +103,7 @@ def reconcile_failures(database):
         ).all()
         for workflow, job in rows:
             escalate(db, workflow, job.id, job.last_error_code or "worker_failed")
+        reconcile_brief_failures(db)
 
 
 def run_once(database: Database, settings: Settings, *, provider_factory=None) -> bool:
@@ -112,6 +129,9 @@ def run_once(database: Database, settings: Settings, *, provider_factory=None) -
         if lease.kind == "process_request":
             with keep_lease(database, lease):
                 process_request(database, lease, box, provider_factory)
+        elif lease.kind == "review_brief":
+            with keep_lease(database, lease):
+                generate_review_brief(database, lease, provider_factory)
         elif lease.kind == "execute_vendor":
             with database.transaction() as db:
                 assert_owned(db, lease)
@@ -145,6 +165,7 @@ def run_once(database: Database, settings: Settings, *, provider_factory=None) -
                         actor_id="system",
                         tool="extract_document" if workflow.status == State.EXTRACTING else None,
                         payload={
+                            "purpose": lease.kind,
                             "code": code,
                             "attempt": lease.attempt,
                             "retryable": retryable,
@@ -153,7 +174,10 @@ def run_once(database: Database, settings: Settings, *, provider_factory=None) -
                         request_id=lease.id,
                     )
                     if status == "failed":
-                        escalate(db, workflow, lease.id, code)
+                        if lease.kind == "review_brief":
+                            mark_brief_failed(workflow, lease.payload, code)
+                        else:
+                            escalate(db, workflow, lease.id, code)
         except LeaseLost:
             logger.warning(json.dumps({"event": "lease_lost", "job_id": lease.id}))
         logger.warning(

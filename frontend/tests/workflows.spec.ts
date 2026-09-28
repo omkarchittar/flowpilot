@@ -104,6 +104,20 @@ test("request, independent approval, execution, audit, notification and logout",
   await expect(
     reviewer.page.getByRole("button", { name: /^Approve Create/ }),
   ).toBeVisible();
+  await expect(
+    reviewer.page.getByRole("heading", {
+      name: "AI review brief",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    reviewer.page.getByText("The policy checks passed for this revision.", {
+      exact: false,
+    }),
+  ).toBeVisible();
+  await expect(
+    reviewer.page.getByText("Advisory", { exact: true }),
+  ).toBeVisible();
   await accessible(reviewer.page);
   await reviewer.page.screenshot({
     path: testInfo.outputPath("review-desktop.png"),
@@ -156,6 +170,11 @@ test("missing evidence can be revised and reviewers request changes", async ({
   const url = await submit(page, "Juniper Systems", "1000002", false);
   await expect(
     page.getByText("Needs information", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("The request is blocked by the recorded findings.", {
+      exact: false,
+    }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "Revise request", exact: true })
@@ -399,5 +418,28 @@ test("login and request forms have accessible labels and contrast", async ({
   await login(page);
   await page.goto("/requests/new");
   await expect(page.getByLabel("Request title")).toBeVisible();
+  await accessible(page);
+});
+
+test("summary retries end in an explicit advisory failure without changing the workflow", async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto("/requests/new");
+  await page.getByLabel("Request title").fill("Invoice review escalation");
+  await page
+    .getByLabel("What needs to happen?")
+    .fill("Please perform an invoice review for this fictional request.");
+  await page
+    .getByRole("button", { name: "Submit request", exact: true })
+    .click();
+  await expect(page.getByText("Manual review", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("AI brief unavailable", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("Manual review", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /^Approve Create/ }),
+  ).toHaveCount(0);
   await accessible(page);
 });

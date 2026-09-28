@@ -78,6 +78,7 @@ class Workflow(Identity, Base):
     version: Mapped[int] = mapped_column(Integer, default=1)
     candidate_ciphertext: Mapped[str | None] = mapped_column(Text)
     validation: Mapped[dict | None] = mapped_column(JSONB)
+    review_brief: Mapped[dict | None] = mapped_column(JSONB)
     model_metadata: Mapped[dict] = mapped_column(JSONB, default=dict)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, onupdate=utcnow

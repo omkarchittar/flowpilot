@@ -27,6 +27,7 @@ import { Empty, ErrorNotice, Loading, PageHeading, Panel, Status } from "./ui";
 import { DecisionPanel } from "./decision-panel";
 import { AuditView } from "./audit-view";
 import { RequestForm } from "./request-form";
+import { ReviewBriefPanel } from "./review-brief";
 const fields: [
   keyof Pick<
     Candidate,
@@ -133,6 +134,11 @@ export function WorkflowDetail({ id }: { id: string }) {
               <span>This request was rejected. No vendor was created.</span>
             </div>
           )}
+          <ReviewBriefPanel
+            brief={workflow.review_brief}
+            revision={workflow.revision}
+            status={workflow.status}
+          />
           <div className="detail-columns">
             <div className="detail-primary">
               <Panel

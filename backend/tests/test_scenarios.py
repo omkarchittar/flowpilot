@@ -12,7 +12,7 @@ import pytest
 from cryptography.fernet import Fernet
 from pydantic import SecretStr
 from sqlalchemy import func, select
-from test_orchestration import Transactions
+from test_orchestration import Transactions, fixture_review_brief
 
 from flowpilot.audit import verify_chain
 from flowpilot.config import Settings
@@ -60,6 +60,9 @@ class ScenarioProvider:
             confidence=self.scenario.get("confidence", 0.99),
         )
         return ModelResult(classification, "controlled-scenario-provider", 20, 10, 1, "classify-v1")
+
+    def review_brief(self, context):
+        return fixture_review_brief(context)
 
     def extract(self, sources):
         self.fail_if_requested("extract")
@@ -188,6 +191,8 @@ def test_workflow_scenario(db, monkeypatch, scenario, record_property):
         assert process_job.last_error_code == "provider_http_503"
         process_job.available_at = datetime.now(UTC) - timedelta(seconds=1)
         db.flush()
+    assert run_once(database, settings, provider_factory=lambda: provider)
+    assert workflow.review_brief["status"] == "complete"
     assert count(db, Vendor) == count(db, Notification) == count(db, Approval) == 0
     if scenario["family"] in {"decision", "execution_replay", "revocation"}:
         actor = requester if scenario.get("own") else approver
@@ -288,9 +293,29 @@ def assert_audit_contract(db, workflow, events):
         ]
         assert len(matches) == 1, message
     if "classification" in workflow.model_metadata:
-        assert len([event for event in events if event.event_type == "MODEL_DECISION"]) == 1, (
-            message
-        )
+        assert (
+            len(
+                [
+                    event
+                    for event in events
+                    if event.event_type == "MODEL_DECISION" and "request_type" in event.payload
+                ]
+            )
+            == 1
+        ), message
+    if workflow.review_brief and workflow.review_brief["status"] == "complete":
+        assert (
+            len(
+                [
+                    event
+                    for event in events
+                    if event.event_type == "MODEL_DECISION"
+                    and event.payload.get("purpose") == "review_brief"
+                    and event.payload.get("fingerprint") == workflow.review_brief["fingerprint"]
+                ]
+            )
+            == 1
+        ), message
     if "extraction" in workflow.model_metadata:
         assert {"extract_document", "check_duplicate_vendor", "validate_vendor"} <= {
             event.tool for event in tools

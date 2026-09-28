@@ -37,8 +37,9 @@ supports at most 50 MB of attachments and enforces smaller configured limits.
 - Workflow detail: persisted model receipts, validation and status. Audit view: immutable
   events with page-scoped hash verification, including retry/failure and tool outcomes.
 - Pending work: check the worker process, provider configuration, lease/retry state and
-  database reachability. Transient failures back off; exhausted/permanent failures become
-  manual review. Do not create vendor rows directly or bypass approval to clear a queue.
+  database reachability. Processing/execution failures back off when transient;
+  exhausted/permanent failures become manual review. Advisory brief failures instead mark the
+  brief unavailable and leave workflow authority unchanged. Do not create vendor rows directly or bypass approval to clear a queue.
 
 Login throttling currently uses the ASGI peer address. When a Next proxy is the only API
 client, its address is shared by browser users. The account limit still applies separately;

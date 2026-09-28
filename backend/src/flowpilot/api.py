@@ -195,6 +195,7 @@ def overview(db: Db, actor: Actor):
 def workflow_detail(workflow_id: str, request: Request, db: Db, actor: Actor):
     row = authorized_workflow(db, workflow_id, actor)
     view = workflow_view(row)
+    view["review_brief"] = row.review_brief
     if row.candidate_ciphertext:
         candidate = read_candidate(row, secret_box(request)).model_dump(mode="json")
         candidate["tax_id"] = (

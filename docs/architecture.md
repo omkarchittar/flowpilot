@@ -22,6 +22,8 @@ flowchart LR
   Worker --> AI[Classification / structured extraction]
   Worker --> Rules[Deterministic policy validation]
   Rules --> Approval[Persisted human approval]
+  Rules --> Brief[Queued advisory AI review brief]
+  Brief --> UI
   Approval --> Tools[Allowlisted idempotent tools]
   Tools --> Registry[Vendor registry / notification outbox]
   Worker --> Audit[Append-only redacted audit events]
@@ -90,3 +92,19 @@ duplicate, retried and unauthorized requests. Report classification and extracti
 accuracy separately from orchestration reliability; synthetic fixtures are labeled.
 Docker Compose, migrations, CI, deployment runbook and browser tests accompany the
 UI. README includes measured benchmarks, diagrams, screenshots and demo GIF.
+
+
+## Advisory review briefs
+
+The same durable worker handles a separate review-brief job after policy validation or an
+escalation. Its inputs are redacted policy findings and classification, never raw documents,
+requests, field values or human comments. Strict schema validation checks the assessment and
+exact issue references. This validates structural agreement, not every semantic claim in the
+prose; the UI labels the brief advisory and keeps authoritative validation and decisions visible.
+
+The current brief stores its revision, source state, context hash, result and model provenance.
+Provider IO runs outside database locks. Publication rechecks lease/revision/context; a later
+revision or human changes request supersedes old work. Published and discarded results have
+immutable output digests and usage records. Transient failures retry; permanent/exhausted failures
+show an unavailable brief without altering workflow authority. Reconciliation matches the current
+fingerprint before batching so stale jobs cannot starve current failures.

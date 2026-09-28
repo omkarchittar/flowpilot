@@ -149,3 +149,30 @@ adding intermediate approval gates. Record actual test results here, not intenti
   deterministic), measured live-model extraction results, deployment/release pipeline verification,
   demo GIF and final acceptance audit. Full task 5 remains open because release requirements remain.
   EvalRAG frontend and broader two-project release work also remain active.
+
+
+### Advisory AI review brief checkpoint — 2026-09-28
+
+- Completed the PRD's AI-generated explanation of readiness/blockers. Separate durable jobs receive
+  only redacted policy/classification facts, use strict model output schemas, and require matching
+  assessment plus exact issue references. No raw request, document, field values or human comments
+  enter the summary prompt. Free-form wording remains explicitly advisory in the UI.
+- Persisted the current brief with revision, source state, context fingerprint, model/prompt/token
+  provenance and generation time. Lease/revision/context fencing prevents stale publication; both
+  published and discarded results record output digests in immutable audit. Revisions clear the
+  brief; human changes and execution blocks replace it.
+- Summary retries use the existing bounded durable queue. Exhaustion and final expired leases mark
+  the brief unavailable without blocking valid approvals or interrupting approved execution.
+- Review found stale failed jobs could fill a reconciliation batch and starve current failures,
+  plus missing digests for discarded outputs. Reproduced both with failing tests, fixed them and
+  obtained approval on re-review with no outstanding findings.
+- Verified **292 backend tests** on PostgreSQL, including all **102 workflow scenarios**, schema
+  drift check and Ruff. The scenarios now also generate controlled briefs and check their audit
+  records. Full downgrade to base and upgrade to `0004_review_brief`, schema check and two
+  post-migration provider/API persistence smoke tests pass. **9 browser journeys** pass against the production standalone frontend and real API/DB/
+  worker with a controlled HTTP model provider. Ready, blocked and unavailable briefs are covered,
+  including accessibility. TypeScript, ESLint, Prettier and production build pass.
+- Reviewed the rendered approval screen and refreshed actual desktop/mobile screenshot evidence.
+  These controlled-model results demonstrate software behavior; live-model quality remains unmeasured.
+- Remaining: EvalRAG frontend, live-provider benchmark runs, Docker/deployment/release verification,
+  demo GIF and final two-project acceptance audit. No remote push or deployment performed.

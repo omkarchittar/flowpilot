@@ -1,8 +1,8 @@
 {
   "evidence_type": "controlled workflow contracts on PostgreSQL; not model accuracy or production reliability",
   "manifest_sha256": "7ce1eedc9a3f942018c670a2567b63378e680f5886cba0f50f08a14cea162a78",
-  "junit_sha256": "59c9bf327c6e09c889ade54fd82c9f878c7987a816fa9843ca8c6794b70d5197",
-  "generated_at": "2026-09-28T06:30:08.161732+00:00",
+  "junit_sha256": "d1602ab3cf903803af065645a62917c086f6447c4103b94b0eb4562e565f6513",
+  "generated_at": "2026-09-28T07:25:51.825393+00:00",
   "passed": true,
   "required_scenarios": 102,
   "observed_scenarios": 102,

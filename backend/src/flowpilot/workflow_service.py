@@ -54,6 +54,16 @@ def change_state(db: Session, workflow: Workflow, target: State, *, actor_id: st
     )
 
 
+def locked_actor(db: Session, actor_id: str) -> User | None:
+    # Refresh the identity map and serialize permission revocation with execution.
+    return db.scalar(
+        select(User)
+        .where(User.id == actor_id)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    )
+
+
 def read_candidate(workflow: Workflow, box: SecretBox) -> VendorCandidate:
     if not workflow.candidate_ciphertext:
         raise WorkflowConflict("No extracted vendor data is available")
@@ -84,7 +94,8 @@ def decide(
     today: date,
 ) -> Workflow:
     workflow = locked_workflow(db, workflow_id)
-    if not actor.active:
+    actor = locked_actor(db, actor.id)
+    if actor is None or not actor.active:
         raise PermissionError("Account is inactive")
     authorize_decision(
         Role(actor.role), decision, actor_id=actor.id, requester_id=workflow.requester_id
@@ -156,7 +167,12 @@ def revise_request(
     request_id: str,
 ) -> Workflow:
     workflow = locked_workflow(db, workflow_id)
-    if not actor.active or (actor.id != workflow.requester_id and actor.role != Role.ADMIN):
+    actor = locked_actor(db, actor.id)
+    if (
+        actor is None
+        or not actor.active
+        or (actor.id != workflow.requester_id and actor.role != Role.ADMIN)
+    ):
         raise PermissionError("Cannot change this workflow")
     if workflow.revision != revision or workflow.status not in {
         State.NEEDS_INFORMATION,
@@ -212,7 +228,7 @@ def execute_approved(
     )
     if not approval or approval.actor_id == workflow.requester_id:
         raise WorkflowConflict("Current revision has no independent human approval")
-    actor = db.get(User, approval.actor_id)
+    actor = locked_actor(db, approval.actor_id)
     if not actor or not actor.active or actor.role not in {Role.APPROVER, Role.ADMIN}:
         raise WorkflowConflict("Approver no longer has authority")
     candidate = read_candidate(workflow, box)

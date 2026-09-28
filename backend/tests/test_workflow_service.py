@@ -195,3 +195,45 @@ def test_requester_cannot_decide_own_workflow(db):
             today=date(2026, 9, 28),
         )
     assert w.status == State.PENDING_APPROVAL
+
+
+def test_revoked_approver_is_reloaded_before_execution(db):
+    from sqlalchemy import text
+
+    w, _, approver, box = ready_workflow(db)
+    decide(
+        db,
+        w.id,
+        actor=approver,
+        revision=1,
+        decision=Decision.APPROVE,
+        comment="",
+        box=box,
+        request_id="test",
+        today=date(2026, 9, 28),
+    )
+    db.execute(text("UPDATE users SET active=false WHERE id=:id"), {"id": approver.id})
+    assert approver.active is True  # identity-map value is deliberately stale
+    with pytest.raises(WorkflowConflict, match="authority"):
+        execute_approved(db, w.id, box=box, request_id="test", today=date(2026, 9, 28))
+    assert db.scalar(select(func.count()).select_from(Vendor)) == 0
+
+
+def test_revoked_approver_is_reloaded_before_decision(db):
+    from sqlalchemy import text
+
+    w, _, approver, box = ready_workflow(db)
+    db.execute(text("UPDATE users SET active=false WHERE id=:id"), {"id": approver.id})
+    assert approver.active is True
+    with pytest.raises(PermissionError):
+        decide(
+            db,
+            w.id,
+            actor=approver,
+            revision=1,
+            decision=Decision.APPROVE,
+            comment="",
+            box=box,
+            request_id="test",
+            today=date(2026, 9, 28),
+        )

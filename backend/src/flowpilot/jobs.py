@@ -1,8 +1,8 @@
 """Durable PostgreSQL queue with expiring leases and stale-worker fencing.
 
 The caller commits claim before doing work. Complete/fail must be in the same
-transaction as corresponding domain mutations, with assert_owned checked before IO
-and again before final writes. Use heartbeats for work longer than a lease.
+transaction as corresponding domain mutations. Check assert_owned in a short
+transaction before external IO, release locks, then recheck before final writes. Use heartbeats for work longer than a lease.
 """
 
 from dataclasses import dataclass
@@ -66,13 +66,13 @@ def claim(db: Session, *, now: datetime | None = None, lease_seconds: int = 120)
 
 
 def assert_owned(db: Session, lease: Lease, *, now: datetime | None = None) -> Job:
-    now = now or utcnow()
     row = db.scalar(
         select(Job)
         .where(Job.id == lease.id)
         .with_for_update()
         .execution_options(populate_existing=True)
     )
+    now = now or utcnow()  # Sample only after a potentially blocking row lock.
     if (
         row is None
         or row.status != "running"
@@ -85,8 +85,8 @@ def assert_owned(db: Session, lease: Lease, *, now: datetime | None = None) -> J
 
 
 def complete(db: Session, lease: Lease, *, now: datetime | None = None) -> None:
-    now = now or utcnow()
     row = assert_owned(db, lease, now=now)
+    now = now or utcnow()
     row.status, row.completed_at = "completed", now
     row.lease_until = row.lease_token = None
     db.flush()
@@ -95,8 +95,8 @@ def complete(db: Session, lease: Lease, *, now: datetime | None = None) -> None:
 def fail(
     db: Session, lease: Lease, *, code: str, retryable: bool, now: datetime | None = None
 ) -> str:
-    now = now or utcnow()
     row = assert_owned(db, lease, now=now)
+    now = now or utcnow()
     # Only stable internal codes belong here; never exception messages or prompts.
     if (
         not code
@@ -118,9 +118,9 @@ def fail(
 def heartbeat(
     db: Session, lease: Lease, *, now: datetime | None = None, lease_seconds: int = 120
 ) -> None:
-    now = now or utcnow()
     if not 1 <= lease_seconds <= 3600:
         raise ValueError("Lease duration must be 1–3600 seconds")
     row = assert_owned(db, lease, now=now)
+    now = now or utcnow()
     row.lease_until = now + timedelta(seconds=lease_seconds)
     db.flush()

@@ -122,3 +122,56 @@ def test_parallel_workers_skip_rows_locked_by_other_transactions():
         with Session(engine) as cleanup, cleanup.begin():
             cleanup.execute(delete(Job).where(Job.id.in_(ids)))
         engine.dispose()
+
+
+@pytest.mark.parametrize("operation", ["complete", "heartbeat", "fail"])
+def test_lease_expiring_while_waiting_for_row_lock_is_rejected(operation):
+    import os
+    import threading
+    import time
+    from uuid import uuid4
+
+    from sqlalchemy import create_engine, delete, select
+    from sqlalchemy.orm import Session
+
+    url = os.environ.get("TEST_DATABASE_URL")
+    if not url:
+        pytest.skip("Requires PostgreSQL")
+    engine = create_engine(url)
+    job_id = None
+    failures = []
+    started = threading.Event()
+
+    def worker():
+        try:
+            with Session(engine) as session, session.begin():
+                started.set()
+                if operation == "fail":
+                    fail(session, lease, code="timeout", retryable=True)
+                else:
+                    {"complete": complete, "heartbeat": heartbeat}[operation](session, lease)
+        except Exception as exc:
+            failures.append(exc)
+
+    try:
+        with Session(engine) as setup, setup.begin():
+            row = Job(
+                kind="lease-test", resource_id="resource", idempotency_key=str(uuid4()), payload={}
+            )
+            setup.add(row)
+            setup.flush()
+            job_id = row.id
+            lease = claim(setup, lease_seconds=1)
+        with Session(engine) as blocker, blocker.begin():
+            blocker.scalar(select(Job).where(Job.id == job_id).with_for_update())
+            thread = threading.Thread(target=worker)
+            thread.start()
+            assert started.wait(timeout=2)
+            time.sleep(1.25)
+        thread.join(timeout=3)
+        assert not thread.is_alive()
+        assert len(failures) == 1 and isinstance(failures[0], LeaseLost)
+    finally:
+        with Session(engine) as cleanup, cleanup.begin():
+            cleanup.execute(delete(Job).where(Job.id == job_id))
+        engine.dispose()

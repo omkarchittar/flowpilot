@@ -26,10 +26,10 @@ adding intermediate approval gates. Record actual test results here, not intenti
 
 ### 1. Foundation and schema
 
-- [ ] Deliverable: `config.py, db.py, models.py, security.py, migrations`.
-- [ ] Behavior evidence: State, policy, role, redaction and relational constraints have behavior tests; migrations run on PostgreSQL.
-- [ ] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
-- [ ] Commit the verified increment and record evidence below.
+- [x] Deliverable: `config.py, db.py, models.py, security.py, migrations`.
+- [x] Behavior evidence: State, policy, role, redaction and relational constraints have behavior tests; migrations run on PostgreSQL.
+- [x] Run the backend suite (`.venv/bin/pytest`) and relevant integration/browser checks.
+- [x] Commit the verified increment and record evidence below.
 
 ### 2. Ingestion and AI extraction
 
@@ -62,3 +62,21 @@ adding intermediate approval gates. Record actual test results here, not intenti
 ## Evidence ledger
 
 - 2026-09-28: Read both source PRDs, verified remote repository empty, cloned independent repository, preserved source requirements and architecture. Implementation in progress.
+
+### Backend increment — 2026-09-28
+
+- Foundation schema and domain services committed locally.
+- PostgreSQL 17 + pgvector 0.8.6 installed for actual integration tests on local port 55432.
+- Verified: 110 tests, 95% statement coverage; Ruff passes; Alembic schema check passes; full downgrade to base then upgrade succeeds.
+- Queue concurrency test uses separate PostgreSQL transactions and proves SKIP LOCKED gives different jobs to different workers.
+- API currently exposes only operational endpoints. Authentication and product endpoints remain pending.
+- Docker Compose and CI definitions are present but not executed locally (Docker is unavailable).
+- Neither frontend, complete benchmark corpus, live model quality, screenshots, GIF nor release deployment is complete.
+- Next: authenticated APIs and worker orchestration; continue through all remaining PRD requirements.
+
+### Reviewed foundation checkpoint
+
+- Independent review found concrete lease-timing, authority-cache, PDF memory, chunk-amplification and model-identity issues. All applicable findings were reproduced and fixed; no review findings deferred.
+- Final suite for this checkpoint: **115 passing tests** with PostgreSQL, with no skipped tests.
+- Real Uvicorn readiness and Prometheus endpoints returned successful responses; smoke-test servers were stopped afterward.
+- Current status: foundation complete, broader product implementation remains active. No remote push or release deployment has been performed.

@@ -112,3 +112,40 @@ adding intermediate approval gates. Record actual test results here, not intenti
 - Native extraction CLI smoke used a temporary local HTTP provider explicitly named `controlled-contract`: 32 classifications and 20 extractions, with one deliberately unsupported field correctly lowering recall/increasing unsupported rate. Actual model/prompt/token metadata persisted; no raw tax identifier appeared in the report. This validates measurement wiring, not live-model quality.
 - CI and local check script now produce/gate on the scenario report. Docker execution and remote CI remain unverified locally. Live extraction accuracy remains required before the full benchmark/release requirement is complete, so task 4's broader behavioral requirement stays open.
 - Next: full Next.js frontend and browser journeys, live-model measurements, Docker/release/deployment validation, screenshots/GIF and final requirement audit. Goal remains active; no remote push or deployment performed.
+
+
+### Operations console checkpoint — 2026-09-28
+
+- Implemented the Next.js/TypeScript console: cookie login/logout, persisted overview counts,
+  paginated/filterable requests and approvals, bounded multipart intake, revisions, extracted
+  field/source/confidence views, deterministic validation, human decisions, audit timeline,
+  notifications and admin account/access controls. Polling cancels obsolete requests and shows
+  errors explicitly. Backend authority remains decisive.
+- Added authenticated request options so the form uses configured upload policy. Revision drafts
+  retain their original base version. Intake retries retain their idempotency key; independent
+  approval and self-approval restrictions are visible in the interface.
+- Independent review identified stale drafts adopting a polled revision and Next's default proxy
+  body ceiling truncating supported larger uploads. Both fixed and covered by browser regressions.
+  Temporarily removing the fixes caused both tests to fail (missing conflict, truncated upload returning HTTP 500);
+  restoring them passes. Corrected a fixture assertion to respect checksum deduplication.
+  Final re-review approved with no outstanding findings.
+- Verified the actual standalone production server (including copied static/public assets) against
+  a disposable PostgreSQL database, FastAPI and a separate worker with a controlled HTTP provider.
+  **All 8 browser journeys pass**, covering approvals/execution/audit/inbox/logout, revisions,
+  rejection/self-approval, cross-owner denial, team administration, concurrent edits, >10MiB
+  uploads, mobile navigation and axe checks on login, request form, dashboard, review and mobile list.
+- Visual inspection caught a mobile table minimum width hiding statuses; fixed it and added an
+  explicit status-in-viewport assertion. Text contrast and form labels corrected; closed mobile
+  navigation is hidden from focus. Saved actual desktop/mobile screenshots with fixture provenance.
+- Frontend lint, TypeScript, Prettier, production build and Python fixture lint/format pass.
+  Backend check script still passes **271 tests / 102 named scenarios**, with no PostgreSQL skips;
+  schema drift check and Ruff pass. No database schema changes in this increment.
+- Added nonroot frontend Dockerfile, standalone build packaging, Compose console service and
+  frontend CI/browser/image jobs. YAML syntax checked and configuration reviewed. Docker and
+  remote CI have not run locally; no deployment or remote push performed.
+- Added setup, build-time proxy configuration and deployment/security runbook. ESLint9 is pinned
+  because current Next React rules fail with ESLint10; this tooling constraint is documented.
+- Remaining FlowPilot work: PRD AI-generated ready/blocked summary (current summary is explicitly
+  deterministic), measured live-model extraction results, deployment/release pipeline verification,
+  demo GIF and final acceptance audit. Full task 5 remains open because release requirements remain.
+  EvalRAG frontend and broader two-project release work also remain active.

@@ -90,6 +90,15 @@ def read_files(files: list[UploadFile], maximum: int):
     return attachments
 
 
+@router.get("/request-options")
+def request_options(request: Request, actor: Actor):
+    return {
+        "upload_limit_bytes": request.app.state.settings.upload_limit_bytes,
+        "max_documents": 20,
+        "accepted_extensions": [".pdf", ".txt", ".md"],
+    }
+
+
 @router.post("/intake", status_code=201)
 def intake(
     body: IntakeInput, request: Request, db: Db, actor: Actor, idempotency_key: IdempotencyKey

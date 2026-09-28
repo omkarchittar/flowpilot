@@ -27,6 +27,9 @@ services:
     environment: &backend_environment
       FLOWPILOT_DATABASE_URL: postgresql+psycopg://flowpilot:${POSTGRES_PASSWORD}@db:5432/flowpilot
       FLOWPILOT_OPENAI_API_KEY: ${FLOWPILOT_OPENAI_API_KEY:-}
+      FLOWPILOT_ENVIRONMENT: ${FLOWPILOT_ENVIRONMENT:-development}
+      FLOWPILOT_ALLOWED_ORIGINS: ${FLOWPILOT_ALLOWED_ORIGINS:-["http://localhost:3001"]}
+      FLOWPILOT_UPLOAD_LIMIT_BYTES: ${FLOWPILOT_UPLOAD_LIMIT_BYTES:-10000000}
       FLOWPILOT_GENERATION_MODEL: ${FLOWPILOT_GENERATION_MODEL:-gpt-4.1-mini}
       FLOWPILOT_ENCRYPTION_KEY: ${FLOWPILOT_ENCRYPTION_KEY:?Set a generated Fernet key in .env}
     ports:
@@ -48,5 +51,21 @@ services:
     depends_on:
       migrate:
         condition: service_completed_successfully
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        FLOWPILOT_API_URL: http://api:8000
+    ports:
+      - "127.0.0.1:3001:3001"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
 volumes:
   db_data:

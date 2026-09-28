@@ -2,9 +2,9 @@
 
 A vendor onboarding system with deterministic validation, revision-bound human approvals and auditable execution.
 
-**Status: workflow backend and reliability benchmark implemented; frontend/release work in progress.**
-The product APIs are usable through OpenAPI or an API client. The frontend and measured live-model
-benchmark/release package are still in progress.
+**Status: backend, workflow benchmark and operations console implemented; release verification in progress.**
+The console supports request intake, revisions, human decisions, audit inspection, inbox and team access.
+Live-model measurements, the AI-generated approval summary and the final release package remain in progress.
 
 ## Implemented and verified
 
@@ -20,10 +20,23 @@ benchmark/release package are still in progress.
 - PostgreSQL job queue with SKIP LOCKED claims, expiring leases, backoff and stale-worker fencing.
 - FastAPI liveness/readiness, structured request logs, correlation IDs and Prometheus metrics.
 - Alembic migrations, reproducible dependency locks, non-root Dockerfile and backend CI definition.
+- Responsive Next.js console with same-origin API proxy, in-memory CSRF tokens and server-enforced permissions.
+- Browser journeys against actual FastAPI/PostgreSQL and the production standalone frontend.
 - [102 named workflow scenarios and a 32-request extraction benchmark](benchmarks/README.md), with reproducible CLI reports and CI artifact generation.
 
-Current local verification: **271 tests pass with PostgreSQL 17**, including the complete 102-scenario benchmark. Live model
-accuracy, Docker image builds and the final release presentation remain unverified.
+Current local verification: **271 backend tests pass with PostgreSQL 17 and 8 browser journeys pass**,
+including the complete 102-scenario benchmark. Type checking, lint, formatting and the standalone
+production build pass. Live model accuracy, Docker image execution and the final release remain unverified.
+
+## Console preview
+
+![FlowPilot operations overview](docs/screenshots/overview-desktop.png)
+
+[Approval screen](docs/screenshots/review-desktop.png) · [Audit trail](docs/screenshots/audit-desktop.png) ·
+[Mobile requests](docs/screenshots/requests-mobile.png)
+
+Screenshots show fictional browser fixtures on the real application stack; displayed model receipts
+are controlled responses. See [capture provenance](docs/screenshots/README.md).
 
 ### Measured workflow contract results
 
@@ -47,9 +60,10 @@ are not presented as model-generated benchmark scores.
 See [architecture and tradeoffs](docs/architecture.md) for the component diagram,
 relational invariants and security/reliability design. The [source PRD](docs/PRD.md)
 is preserved from the supplied Word document. The [implementation plan](docs/implementation-plan.md)
-tracks the complete scope and evidence.
+tracks the complete scope and evidence. The [deployment and security runbook](docs/deployment.md)
+covers HTTPS, secret handling, worker recovery, backups and trust boundaries.
 
-## Run the current backend with Docker
+## Run with Docker
 
 Requires Docker Compose. From the repository root:
 
@@ -60,13 +74,14 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Open `http://localhost:8001/docs` for the current API schema.
+Open `http://localhost:3001` for the console and `http://localhost:8001/docs` for the API schema.
 `/health/live` checks the process; `/health/ready` checks the database and migration
 version table; `/metrics` exports request counts and latency histograms. Ports bind
 only to localhost. Keep `/metrics` internal behind the deployment gateway.
 
 Compose starts PostgreSQL, runs the migrations as a separate one-shot service and
-then starts the API and a separate durable worker. The frontend is not yet included.
+then starts the API, a separate durable worker and the frontend. The frontend image bakes in the
+internal API address at build time. Docker execution remains unverified in this local environment.
 
 ## Native development
 
@@ -85,6 +100,10 @@ export FLOWPILOT_DATABASE_URL='postgresql+psycopg://USER:PASSWORD@localhost:5432
 
 Secrets belong in environment variables or a git-ignored `backend/.env` for native
 runs. Never commit API keys, encryption keys or real business documents.
+
+For the console, run `npm ci && npm run dev` from `frontend/`, then open
+`http://localhost:3001`. See [frontend setup and browser tests](frontend/README.md) for
+standalone production builds, proxy configuration and accessibility checks.
 
 ## Accounts and worker configuration
 
@@ -144,7 +163,8 @@ adapter contracts. They are not fabricated live model quality results.
 
 ## Next milestones
 
-Next.js frontend; browser tests; live-provider extraction measurements; release pipeline; screenshots and demo GIF.
+AI-generated readiness summaries; live-provider extraction measurements; deployment verification;
+release pipeline; final screenshots and demo GIF.
 
 The final release will include measured benchmarks, an interactive frontend,
 architecture/state diagrams, screenshots, a demo GIF, deployment instructions and
